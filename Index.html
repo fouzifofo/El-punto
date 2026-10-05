@@ -1,1 +1,194 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EL PUNTO</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      line-height: 1.7;
+    }
+
+    header {
+      text-align: center;
+      padding: 35px 15px;
+      background: linear-gradient(135deg, #000, #292929);
+    }
+
+    header h1 {
+      font-size: 42px;
+      color: #ffb300;
+      letter-spacing: 3px;
+    }
+
+    header p {
+      color: #ddd;
+      margin-top: 5px;
+    }
+
+    .language {
+      text-align: center;
+      margin: 20px;
+    }
+
+    button {
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 25px;
+      cursor: pointer;
+      background: #ffb300;
+      color: #111;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 10px 15px 40px;
+    }
+
+    .category {
+      margin-top: 30px;
+    }
+
+    .category h2 {
+      color: #ffb300;
+      border-bottom: 2px solid #ffb300;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .item {
+      background: #1d1d1d;
+      margin: 10px 0;
+      padding: 14px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .price {
+      color: #ffb300;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .sizes {
+      color: #bbb;
+      font-size: 14px;
+    }
+
+    .contact {
+      text-align: center;
+      background: #1d1d1d;
+      padding: 25px;
+      margin-top: 35px;
+      border-radius: 15px;
+    }
+
+    .contact a {
+      display: inline-block;
+      margin-top: 12px;
+      background: #ffb300;
+      color: #111;
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #888;
+      font-size: 14px;
+    }
+
+    .fr {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>EL PUNTO</h1>
+  <p class="ar">🍔 Burger • 🌯 Tacos • 🥪 Sandwich</p>
+  <p class="fr">🍔 Burger • 🌯 Tacos • 🥪 Sandwich</p>
+</header>
+
+<div class="language">
+  <button onclick="showArabic()">العربية</button>
+  <button onclick="showFrench()">Français</button>
+</div>
+
+<div class="container">
+
+  <!-- BURGERS -->
+  <section class="category">
+    <h2 class="ar">🍔 البرغر</h2>
+    <h2 class="fr">🍔 Burgers</h2>
+
+    <div class="item">
+      <span class="ar">برغر كلاسيك</span>
+      <span class="fr">Burger Classique</span>
+      <span class="price">200 DA</span>
+    </div>
+
+    <div class="item">
+      <span class="ar">برغر أمريكا</span>
+      <span class="fr">Burger America</span>
+      <span class="price">500 DA</span>
+    </div>
+
+    <div class="item">
+      <span class="ar">برغر فوريستي</span>
+      <span class="fr">Burger Forestier</span>
+      <span class="price">500 DA</span>
+    </div>
+
+    <div class="item">
+      <span class="ar">برغر كريسبي</span>
+      <span class="fr">Burger Crispy</span>
+      <span class="price">400 DA</span>
+    </div>
+
+    <div class="item">
+      <span class="ar">برغر EL PUNTO</span>
+      <span class="fr">Burger EL PUNTO</span>
+      <span class="price">500 DA</span>
+    </div>
+  </section>
+
+  <!-- TACOS -->
+  <section class="category">
+    <h2 class="ar">🌯 الطاكوس</h2>
+    <h2 class="fr">🌯 Tacos</h2>
+
+    <div class="item">
+      <div>
+        <span class="ar">طاكوس دجاج</span>
+        <span class="fr">Tacos Poulet</span>
+      </div>
+      <span class="price">M 400 | L 600 | XL 800</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <span class="ar">طاكوس لحم</span>
+        <span class="fr">Tacos Viande</span>
+      </div>
+      <span class="price">M 450
