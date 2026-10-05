@@ -1,360 +1,783 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>EL PUNTO | Menu</title>
+  <title>EL PUNTO | Restaurant</title>
+  <meta name="description" content="EL PUNTO - Restaurant à Rahmania">
 
-<style>
-*{
-    box-sizing:border-box;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#111;
-    color:white;
-}
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b0b0b;
+      color: #fff;
+      line-height: 1.6;
+    }
 
-header{
-    text-align:center;
-    padding:35px 15px;
-    background:linear-gradient(135deg,#000,#242424);
-    border-bottom:3px solid #f5b400;
-}
+    /* HEADER */
+    header {
+      min-height: 430px;
+      background:
+        linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.85)),
+        url("https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1600&q=85")
+        center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px 15px;
+    }
 
-.logo{
-    font-size:45px;
-    font-weight:900;
-    letter-spacing:3px;
-    color:#f5b400;
-}
+    .logo {
+      font-size: 58px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      color: #ffd400;
+      text-shadow: 4px 4px 0 #d40000;
+    }
 
-.subtitle{
-    margin-top:8px;
-    color:#ddd;
-    font-size:16px;
-}
+    .subtitle {
+      font-size: 20px;
+      margin: 10px 0 25px;
+      color: #fff;
+    }
 
-.lang{
-    margin-top:20px;
-}
+    .buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
 
-.lang button{
-    border:none;
-    padding:9px 18px;
-    margin:4px;
-    border-radius:20px;
-    background:#f5b400;
-    color:#111;
-    font-weight:bold;
-}
+    .btn {
+      text-decoration: none;
+      color: #fff;
+      background: #d40000;
+      border: 2px solid #ffd400;
+      padding: 12px 22px;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: .2s;
+    }
 
-.container{
-    max-width:900px;
-    margin:auto;
-    padding:15px;
-}
+    .btn:hover {
+      background: #ffd400;
+      color: #000;
+      transform: scale(1.04);
+    }
 
-.section{
-    margin-top:30px;
-}
+    .btn.yellow {
+      background: #ffd400;
+      color: #000;
+    }
 
-.section h2{
-    color:#f5b400;
-    border-bottom:1px solid #444;
-    padding-bottom:10px;
-}
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #111;
+      border-bottom: 2px solid #d40000;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 10px;
+      text-align: center;
+    }
 
-.item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:#1d1d1d;
-    margin:10px 0;
-    padding:15px;
-    border-radius:12px;
-}
+    nav a {
+      display: inline-block;
+      color: #fff;
+      text-decoration: none;
+      margin: 5px;
+      padding: 8px 14px;
+      border-radius: 20px;
+      background: #222;
+      font-weight: bold;
+    }
 
-.name{
-    font-weight:bold;
-}
+    nav a:hover {
+      background: #d40000;
+    }
 
-.price{
-    color:#f5b400;
-    font-weight:bold;
-    text-align:left;
-}
+    /* MAIN */
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px 14px 60px;
+    }
 
-.sizes{
-    color:#bbb;
-    font-size:13px;
-    margin-top:5px;
-}
+    .section {
+      margin: 45px 0;
+      scroll-margin-top: 75px;
+    }
 
-.info{
-    text-align:center;
-    background:#1b1b1b;
-    margin-top:30px;
-    padding:20px;
-    border-radius:15px;
-}
+    .section-title {
+      background: #d40000;
+      border-right: 7px solid #ffd400;
+      padding: 12px 18px;
+      margin-bottom: 18px;
+      border-radius: 10px;
+      font-size: 27px;
+    }
 
-.info a{
-    color:#f5b400;
-    text-decoration:none;
-    font-weight:bold;
-}
+    .section-image {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 18px;
+      border: 2px solid #ffd400;
+      display: block;
+    }
 
-footer{
-    text-align:center;
-    color:#888;
-    padding:30px 10px;
-}
-</style>
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 14px;
+    }
+
+    .item {
+      background: #171717;
+      border: 1px solid #333;
+      border-right: 4px solid #d40000;
+      border-radius: 12px;
+      padding: 15px;
+      transition: .2s;
+    }
+
+    .item:hover {
+      transform: translateY(-3px);
+      border-right-color: #ffd400;
+    }
+
+    .item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .item-name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .price {
+      color: #ffd400;
+      font-size: 19px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .sizes {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .size {
+      background: #242424;
+      padding: 4px 9px;
+      border-radius: 7px;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .note {
+      color: #aaa;
+      font-size: 13px;
+      margin-top: 7px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #050505;
+      border-top: 2px solid #d40000;
+      text-align: center;
+      padding: 35px 15px;
+    }
+
+    footer h2 {
+      color: #ffd400;
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      margin: 5px 0;
+      color: #ccc;
+    }
+
+    .footer-buttons {
+      margin-top: 18px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 600px) {
+      .logo {
+        font-size: 43px;
+      }
+
+      header {
+        min-height: 390px;
+      }
+
+      .subtitle {
+        font-size: 17px;
+      }
+
+      .section-title {
+        font-size: 23px;
+      }
+
+      .section-image {
+        height: 190px;
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
+  <div>
+    <div class="logo">EL PUNTO</div>
+    <div class="subtitle">
+      🍔 Burgers • 🌮 Tacos • 🍕 Pizza • 🥪 Sandwichs
+    </div>
 
-<div class="logo">EL PUNTO</div>
+    <div class="buttons">
+      <a class="btn" href="tel:+213778429526">📞 اتصل بنا</a>
 
-<div class="subtitle">
-Burger • Tacos • Sandwich • Gratiné
-</div>
-
-<div class="lang">
-<button onclick="arabic()">العربية</button>
-<button onclick="french()">Français</button>
-</div>
-
+      <a
+        class="btn yellow"
+        href="https://maps.app.goo.gl/3MJWAwXz2chDKAdQ6"
+        target="_blank"
+        rel="noopener"
+      >
+        📍 الموقع
+      </a>
+    </div>
+  </div>
 </header>
 
+<nav>
+  <a href="#burgers">🍔 Burgers</a>
+  <a href="#tacos">🌮 Tacos</a>
+  <a href="#sandwichs">🥪 Sandwichs</a>
+  <a href="#gratins">🍲 Gratins</a>
+  <a href="#pizza">🍕 Pizza</a>
+  <a href="#snacks">🍟 Snacks</a>
+</nav>
 
-<div class="container">
+<main>
 
-<!-- BURGERS -->
+  <!-- BURGERS -->
+  <section class="section" id="burgers">
+    <h2 class="section-title">🍔 BURGERS</h2>
 
-<div class="section">
+    <img
+      class="section-image"
+      src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1200&q=85"
+      alt="Burgers"
+    >
 
-<h2 id="burgersTitle">🍔 البرغر</h2>
+    <div class="menu-grid">
 
-<div class="item">
-<div class="name">برغر كلاسيك</div>
-<div class="price">200 DA</div>
-</div>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Burger Classique</span>
+          <span class="price">200 DA</span>
+        </div>
+      </div>
 
-<div class="item">
-<div class="name">برغر أمريكا</div>
-<div class="price">500 DA</div>
-</div>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Burger America</span>
+          <span class="price">500 DA</span>
+        </div>
+      </div>
 
-<div class="item">
-<div class="name">برغر فوريستي</div>
-<div class="price">500 DA</div>
-</div>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Burger Forestier</span>
+          <span class="price">500 DA</span>
+        </div>
+      </div>
 
-<div class="item">
-<div class="name">برغر كريسبي</div>
-<div class="price">400 DA</div>
-</div>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Burger Crispy</span>
+          <span class="price">400 DA</span>
+        </div>
+      </div>
 
-<div class="item">
-<div class="name">برغر EL PUNTO</div>
-<div class="price">500 DA</div>
-</div>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Burger Signature</span>
+          <span class="price">500 DA</span>
+        </div>
+      </div>
 
-</div>
-
-
-<!-- TACOS -->
-
-<div class="section">
-
-<h2 id="tacosTitle">🌯 الطاكوس</h2>
-
-<div class="item">
-<div>
-<div class="name">طاكوس دجاج</div>
-<div class="sizes">M: 400 DA | L: 600 DA | XL: 800 DA</div>
-</div>
-</div>
-
-<div class="item">
-<div>
-<div class="name">طاكوس لحم</div>
-<div class="sizes">M: 450 DA | L: 700 DA | XL: 800 DA</div>
-</div>
-</div>
-
-<div class="item">
-<div>
-<div class="name">طاكوس مرڨاز</div>
-<div class="sizes">M: 500 DA | L: 700 DA | XL: 800 DA</div>
-</div>
-</div>
-
-<div class="item">
-<div>
-<div class="name">طاكوس كبدة</div>
-<div class="sizes">M: 550 DA | L: 700 DA | XL: 850 DA</div>
-</div>
-</div>
-
-<div class="item">
-<div>
-<div class="name">طاكوس كريسبي</div>
-<div class="sizes">M: 500 DA | L: 700 DA | XL: 800 DA</div>
-</div>
-</div>
-
-<div class="item">
-<div>
-<div class="name">طاكوس كوردون بلو</div>
-<div class="sizes">M: 650 DA | L: 800 DA | XL: 1000 DA</div>
-</div>
-</div>
-
-<div class="item">
-<div>
-<div class="name">طاكوس سبيسيال</div>
-<div class="sizes">M: 850 DA | L: 1200 DA | XL: 1500 DA</div>
-</div>
-</div>
-
-</div>
+    </div>
+  </section>
 
 
-<!-- SANDWICH -->
+  <!-- TACOS -->
+  <section class="section" id="tacos">
+    <h2 class="section-title">🌮 TACOS</h2>
 
-<div class="section">
+    <img
+      class="section-image"
+      src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=1200&q=85"
+      alt="Tacos"
+    >
 
-<h2 id="sandwichTitle">🥪 الساندويتش</h2>
+    <div class="menu-grid">
 
-<div class="item">
-<div class="name">ماريني</div>
-<div class="price">250 DA</div>
-</div>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Tacos Poulet</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 400 DA</span>
+          <span class="size">L — 600 DA</span>
+          <span class="size">XL — 800 DA</span>
+        </div>
+      </div>
 
-<div class="item">
-<div class="name">لحم</div>
-<div class="price">300 DA</div>
-</div>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Tacos Viande</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 450 DA</span>
+          <span class="size">L — 700 DA</span>
+          <span class="size">XL — 800 DA</span>
+        </div>
+      </div>
 
-<div class="item">
-<div class="name">مرڨاز</div>
-<div class="price">300 DA</div>
-</div>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Tacos Merguez</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 500 DA</span>
+          <span class="size">L — 700 DA</span>
+          <span class="size">XL — 800 DA</span>
+        </div>
+      </div>
 
-<div class="item">
-<div class="name">كبدة</div>
-<div class="price">350 DA</div>
-</div>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Tacos Foie</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 550 DA</span>
+          <span class="size">L — 700 DA</span>
+          <span class="size">XL — 850 DA</span>
+        </div>
+      </div>
 
-<div class="item">
-<div class="name">إسكالوب</div>
-<div class="price">350 DA</div>
-</div>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Tacos Crispy</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 500 DA</span>
+          <span class="size">L — 700 DA</span>
+          <span class="size">XL — 800 DA</span>
+        </div>
+      </div>
 
-<div class="item">
-<div class="name">ساندويتش سبيسيال</div>
-<div class="price">500 DA</div>
-</div>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Tacos Cordon Bleu</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 650 DA</span>
+          <span class="size">L — 800 DA</span>
+          <span class="size">XL — 1000 DA</span>
+        </div>
+      </div>
 
-</div>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Tacos Signature</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 850 DA</span>
+          <span class="size">L — 1200 DA</span>
+          <span class="size">XL — 1500 DA</span>
+        </div>
+      </div>
 
-
-<!-- GRATINE -->
-
-<div class="section">
-
-<h2 id="gratineTitle">🧀 غراتيني</h2>
-
-<div class="item">
-<div class="name">غراتيني دجاج</div>
-<div class="price">350 DA</div>
-</div>
-
-<div class="item">
-<div class="name">غراتيني لحم</div>
-<div class="price">400 DA</div>
-</div>
-
-<div class="item">
-<div class="name">غراتيني مرڨاز</div>
-<div class="price">400 DA</div>
-</div>
-
-<div class="item">
-<div class="name">غراتيني كبدة</div>
-<div class="price">400 DA</div>
-</div>
-
-</div>
+    </div>
+  </section>
 
 
-<!-- CONTACT -->
+  <!-- SANDWICHS -->
+  <section class="section" id="sandwichs">
+    <h2 class="section-title">🥪 SANDWICHS</h2>
 
-<div class="info">
+    <img
+      class="section-image"
+      src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=1200&q=85"
+      alt="Sandwichs"
+    >
 
-<h2>📍 EL PUNTO</h2>
+    <div class="menu-grid">
 
-<p>Q19 bt35 c3</p>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Sandwich Mariné</span>
+          <span class="price">250 DA</span>
+        </div>
+      </div>
 
-<p>
-📞
-<a href="tel:0778429526">
-0778429526
-</a>
-</p>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Sandwich Viande</span>
+          <span class="price">300 DA</span>
+        </div>
+      </div>
 
-<p>
-<a href="https://maps.app.goo.gl/yCAAej3y1GDsgQhm8"
-target="_blank">
-📍 فتح الموقع على الخريطة
-</a>
-</p>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Sandwich Merguez</span>
+          <span class="price">300 DA</span>
+        </div>
+      </div>
 
-</div>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Sandwich Foie</span>
+          <span class="price">350 DA</span>
+        </div>
+      </div>
 
-</div>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Sandwich Escalope</span>
+          <span class="price">350 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Sandwich Signature</span>
+          <span class="price">500 DA</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- GRATINS -->
+  <section class="section" id="gratins">
+    <h2 class="section-title">🍲 GRATINS</h2>
+
+    <img
+      class="section-image"
+      src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85"
+      alt="Gratins"
+    >
+
+    <div class="menu-grid">
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Gratin Poulet</span>
+          <span class="price">350 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Gratin Viande</span>
+          <span class="price">400 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Gratin Merguez</span>
+          <span class="price">400 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Gratin Foie</span>
+          <span class="price">400 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Gratin Crevettes</span>
+          <span class="price">550 DA</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- PIZZA -->
+  <section class="section" id="pizza">
+    <h2 class="section-title">🍕 PIZZA</h2>
+
+    <img
+      class="section-image"
+      src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=1200&q=85"
+      alt="Pizza"
+    >
+
+    <div class="menu-grid">
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Pizza Poulet</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 400 DA</span>
+          <span class="size">L — 700 DA</span>
+          <span class="size">XL — 1200 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Pizza Viande</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 500 DA</span>
+          <span class="size">L — 850 DA</span>
+          <span class="size">XL — 1200 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Pizza Merguez</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 450 DA</span>
+          <span class="size">L — 700 DA</span>
+          <span class="size">XL — 1200 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Pizza Végétarienne</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 350 DA</span>
+          <span class="size">L — 600 DA</span>
+          <span class="size">XL — 1000 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Pizza Foie</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 500 DA</span>
+          <span class="size">L — 850 DA</span>
+          <span class="size">XL — 1200 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Pizza Poulet Fumé</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 400 DA</span>
+          <span class="size">L — 700 DA</span>
+          <span class="size">XL — 1200 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Pizza Crevettes</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 650 DA</span>
+          <span class="size">L — 1000 DA</span>
+          <span class="size">XL — 1500 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Pizza Signature</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 800 DA</span>
+          <span class="size">L — 1200 DA</span>
+          <span class="size">XL — 2000 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Pizza XXL</span>
+        </div>
+        <div class="sizes">
+          <span class="size">L — 1000 DA</span>
+          <span class="size">XL — 2000 DA</span>
+          <span class="size">XXL — 3000 DA</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- SNACKS -->
+  <section class="section" id="snacks">
+    <h2 class="section-title">🍟 SNACKS</h2>
+
+    <img
+      class="section-image"
+      src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=1200&q=85"
+      alt="Snacks"
+    >
+
+    <div class="menu-grid">
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Bordier</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 100 DA</span>
+          <span class="size">L — 200 DA</span>
+          <span class="size">XL — 300 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Fromage</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 300 DA</span>
+          <span class="size">L — 600 DA</span>
+          <span class="size">XL — 850 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">2 Fromages</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 350 DA</span>
+          <span class="size">L — 700 DA</span>
+          <span class="size">XL — 1000 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">3 Fromages</span>
+        </div>
+        <div class="sizes">
+          <span class="size">M — 450 DA</span>
+          <span class="size">L — 900 DA</span>
+          <span class="size">XL — 1200 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Poutine</span>
+          <span class="price">600 / 750 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Bourek</span>
+          <span class="price">100 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Quiche</span>
+          <span class="price">100 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Tranche</span>
+          <span class="price">100 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Mini Frites</span>
+          <span class="price">100 DA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-top">
+          <span class="item-name">Autres</span>
+          <span class="price">100 DA</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
 
 
 <footer>
-© 2026 EL PUNTO — Tous droits réservés
+  <h2>EL PUNTO</h2>
+
+  <p>📍 Q20 — Rahmania, Alger</p>
+  <p>📞 0778 42 95 26</p>
+
+  <div class="footer-buttons">
+    <a class="btn" href="tel:+213778429526">📞 Appeler</a>
+
+    <a
+      class="btn yellow"
+      href="https://maps.app.goo.gl/3MJWAwXz2chDKAdQ6"
+      target="_blank"
+      rel="noopener"
+    >
+      📍 Itinéraire
+    </a>
+  </div>
+
+  <p style="margin-top:25px;color:#777;">
+    © 2026 EL PUNTO — Tous droits réservés
+  </p>
 </footer>
-
-
-<script>
-
-function arabic(){
-
-document.documentElement.lang="ar";
-document.documentElement.dir="rtl";
-
-document.getElementById("burgersTitle").innerHTML="🍔 البرغر";
-document.getElementById("tacosTitle").innerHTML="🌯 الطاكوس";
-document.getElementById("sandwichTitle").innerHTML="🥪 الساندويتش";
-document.getElementById("gratineTitle").innerHTML="🧀 غراتيني";
-
-}
-
-function french(){
-
-document.documentElement.lang="fr";
-document.documentElement.dir="ltr";
-
-document.getElementById("burgersTitle").innerHTML="🍔 Burgers";
-document.getElementById("tacosTitle").innerHTML="🌯 Tacos";
-document.getElementById("sandwichTitle").innerHTML="🥪 Sandwichs";
-document.getElementById("gratineTitle").innerHTML="🧀 Gratins";
-
-}
-
-</script>
 
 </body>
 </html>
