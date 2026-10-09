@@ -2,1043 +2,602 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FLAVORA | Food Ordering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111111">
+<title>FLAVORA | Commandez en ligne</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+:root {
+  --red: #e32222;
+  --yellow: #ffd21c;
+  --bg: #101010;
+  --panel: #1c1c1c;
+  --muted: #bdbdbd;
 }
-
-body{
-    font-family:Arial, sans-serif;
-    background:#0d0d0d;
-    color:#fff;
-    padding-bottom:100px;
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: white;
+  font-family: Arial, sans-serif;
 }
-
-header{
-    background:linear-gradient(135deg,#111,#1d1d1d);
-    padding:22px 15px;
-    text-align:center;
-    position:sticky;
-    top:0;
-    z-index:1000;
-    border-bottom:2px solid #f5c400;
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #111;
+  border-bottom: 3px solid var(--yellow);
+  text-align: center;
+  padding: 15px;
 }
-
-.logo{
-    font-size:32px;
-    font-weight:bold;
-    color:#f5c400;
-    letter-spacing:2px;
+.logo {
+  color: var(--yellow);
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: 2px;
 }
-
-.subtitle{
-    margin-top:5px;
-    color:#ddd;
-    font-size:14px;
+.tagline { color: #ddd; margin: 6px 0 12px; }
+.lang button {
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 20px;
+  margin: 0 3px;
+  background: #333;
+  color: white;
 }
-
-.lang{
-    margin-top:12px;
+.lang button.active { background: var(--yellow); color: #111; }
+.container { width: min(1100px, 100%); margin: auto; padding: 15px; }
+.hero {
+  background: linear-gradient(120deg,#3b0808,#171717 70%);
+  padding: 25px 18px;
+  border-radius: 16px;
+  margin: 18px 0;
+  text-align: center;
 }
-
-.lang button{
-    border:none;
-    padding:8px 15px;
-    margin:3px;
-    border-radius:20px;
-    cursor:pointer;
-    font-weight:bold;
+.hero h1 { color: var(--yellow); margin: 0 0 8px; }
+.hero p { color: #eee; margin: 0; line-height: 1.7; }
+.category { margin: 30px 0; }
+.category h2 {
+  color: var(--yellow);
+  border-inline-start: 5px solid var(--red);
+  padding-inline-start: 12px;
+  margin-bottom: 16px;
 }
-
-.lang button:first-child{
-    background:#f5c400;
-    color:#111;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 16px;
 }
-
-.lang button:last-child{
-    background:#333;
-    color:#fff;
+.card {
+  background: var(--panel);
+  border: 1px solid #333;
+  border-radius: 14px;
+  overflow: hidden;
 }
-
-.container{
-    max-width:1100px;
-    margin:auto;
-    padding:15px;
+.card img {
+  display: block;
+  width: 100%;
+  height: 175px;
+  object-fit: cover;
+  background: #292929;
 }
-
-.category{
-    margin-top:30px;
+.card-body { padding: 14px; }
+.card h3 { margin: 0 0 8px; font-size: 19px; }
+.desc { color: var(--muted); font-size: 13px; min-height: 18px; }
+.price-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 12px;
 }
-
-.category h2{
-    color:#f5c400;
-    border-right:4px solid #e00000;
-    padding-right:10px;
-    margin-bottom:15px;
-    font-size:24px;
+.price { color: var(--yellow); font-weight: bold; }
+.add, .size-btn {
+  border: 0;
+  border-radius: 8px;
+  background: var(--red);
+  color: white;
+  padding: 10px 12px;
+  font-weight: bold;
 }
-
-.menu-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-    gap:16px;
+.sizes { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+.size-btn { background: #303030; border: 1px solid #555; font-size: 13px; }
+.size-btn:hover, .add:hover { background: #b91515; }
+.cart {
+  background: #191919;
+  border: 2px solid var(--yellow);
+  border-radius: 16px;
+  padding: 18px;
+  margin: 30px 0;
 }
-
-.card{
-    background:#181818;
-    border-radius:16px;
-    overflow:hidden;
-    box-shadow:0 5px 18px rgba(0,0,0,.35);
-    border:1px solid #292929;
+.cart h2 { color: var(--yellow); margin-top: 0; }
+.cart-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-bottom: 1px solid #383838;
+  padding: 12px 0;
 }
-
-.card img{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-    display:block;
+.cart-name { flex: 1; min-width: 120px; }
+.cart-name small { display: block; color: #bbb; margin-top: 5px; }
+.qty { display: flex; align-items: center; gap: 9px; }
+.qty button {
+  border: 0;
+  border-radius: 6px;
+  width: 30px;
+  height: 30px;
+  font-weight: bold;
 }
-
-.card-content{
-    padding:15px;
+.qty .minus { background: #444; color: white; }
+.qty .plus { background: var(--yellow); color: #111; }
+.remove { background: #8c1717; color: white; border: 0; border-radius: 6px; padding: 8px; }
+.total {
+  text-align: center;
+  color: var(--yellow);
+  font-size: 25px;
+  font-weight: bold;
+  margin: 20px 0;
 }
-
-.card h3{
-    font-size:20px;
-    margin-bottom:8px;
+.form { display: grid; gap: 11px; }
+.form input, .form textarea {
+  width: 100%;
+  border: 1px solid #444;
+  background: #252525;
+  color: white;
+  padding: 13px;
+  border-radius: 9px;
 }
-
-.card p{
-    color:#bbb;
-    font-size:13px;
-    margin-bottom:12px;
+.form textarea { min-height: 85px; resize: vertical; }
+.whatsapp {
+  width: 100%;
+  padding: 15px;
+  background: #20c765;
+  color: white;
+  border: 0;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 17px;
 }
-
-.sizes{
-    display:flex;
-    flex-wrap:wrap;
-    gap:7px;
-}
-
-.size-btn{
-    background:#242424;
-    color:white;
-    border:1px solid #555;
-    padding:8px 10px;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.size-btn:hover{
-    background:#e00000;
-    border-color:#e00000;
-}
-
-.single-price{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.price{
-    color:#f5c400;
-    font-weight:bold;
-}
-
-.add-btn{
-    background:#e00000;
-    color:white;
-    border:none;
-    padding:10px 15px;
-    border-radius:9px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.add-btn:hover{
-    background:#b90000;
-}
-
-/* CART */
-
-.cart{
-    margin-top:35px;
-    background:#151515;
-    border:2px solid #f5c400;
-    border-radius:16px;
-    padding:20px;
-}
-
-.cart h2{
-    color:#f5c400;
-    margin-bottom:15px;
-}
-
-.cart-item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    padding:12px 0;
-    border-bottom:1px solid #333;
-}
-
-.cart-info{
-    flex:1;
-}
-
-.cart-info strong{
-    display:block;
-}
-
-.cart-info small{
-    color:#aaa;
-}
-
-.quantity{
-    display:flex;
-    align-items:center;
-    gap:7px;
-}
-
-.quantity button{
-    width:30px;
-    height:30px;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.minus{
-    background:#333;
-    color:white;
-}
-
-.plus{
-    background:#f5c400;
-    color:#111;
-}
-
-.remove{
-    background:#e00000;
-    color:white;
-    border:none;
-    padding:6px 8px;
-    border-radius:6px;
-    cursor:pointer;
-}
-
-.total{
-    text-align:center;
-    font-size:24px;
-    font-weight:bold;
-    color:#f5c400;
-    margin:20px 0;
-}
-
-/* FORM */
-
-.order-form{
-    display:grid;
-    gap:10px;
-}
-
-.order-form input,
-.order-form textarea{
-    width:100%;
-    padding:13px;
-    border-radius:9px;
-    border:1px solid #444;
-    background:#222;
-    color:white;
-    font-size:15px;
-}
-
-.order-form textarea{
-    min-height:90px;
-    resize:vertical;
-}
-
-.whatsapp{
-    width:100%;
-    background:#25D366;
-    color:white;
-    border:none;
-    padding:15px;
-    border-radius:10px;
-    font-size:18px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.whatsapp:hover{
-    background:#1da851;
-}
-
-.empty{
-    text-align:center;
-    color:#888;
-    padding:15px;
-}
-
-footer{
-    text-align:center;
-    padding:25px;
-    color:#888;
-    font-size:13px;
-}
-
-/* DESKTOP */
-
-@media(min-width:700px){
-    .cart{
-        position:relative;
-    }
-}
-
-/* MOBILE */
-
-@media(max-width:600px){
-    .logo{
-        font-size:27px;
-    }
-
-    .card img{
-        height:160px;
-    }
-
-    .category h2{
-        font-size:21px;
-    }
-
-    .cart-item{
-        flex-wrap:wrap;
-    }
+.whatsapp:hover { background: #169d4d; }
+.empty { color: #aaa; text-align: center; padding: 18px 0; }
+footer { text-align: center; color: #888; padding: 25px 10px; }
+@media(max-width:500px) {
+  .logo { font-size: 27px; }
+  .grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+  .card img { height: 125px; }
+  .card-body { padding: 10px; }
+  .card h3 { font-size: 16px; }
+  .size-btn { padding: 8px 7px; font-size: 12px; }
 }
 </style>
 </head>
 
 <body>
-
 <header>
-    <div class="logo">FLAVORA</div>
-    <div class="subtitle" id="subtitle">اطلب وجبتك بسهولة</div>
-
-    <div class="lang">
-        <button onclick="setLanguage('ar')">العربية</button>
-        <button onclick="setLanguage('fr')">Français</button>
-    </div>
+  <div class="logo">FLAVORA</div>
+  <div class="tagline" id="tagline">وجبتك المفضلة، على ذوقك</div>
+  <div class="lang">
+    <button id="arBtn" class="active" onclick="setLanguage('ar')">العربية</button>
+    <button id="frBtn" onclick="setLanguage('fr')">Français</button>
+  </div>
 </header>
 
-<div class="container">
+<main class="container">
+  <section class="hero">
+    <h1 id="heroTitle">مرحبا بك في FLAVORA</h1>
+    <p id="heroText">اختار وجبتك، زيدها للسلة، وأرسل طلبك مباشرة عبر WhatsApp.</p>
+  </section>
 
-    <!-- BURGERS -->
-    <section class="category">
-        <h2 data-ar="🍔 البرغر" data-fr="🍔 Burgers">🍔 البرغر</h2>
+  <div id="menu"></div>
 
-        <div class="menu-grid">
+  <section class="cart" id="cart">
+    <h2 id="cartTitle">🛒 سلة الطلبات</h2>
+    <div id="cartItems"></div>
+    <div class="total">
+      <span id="totalLabel">المجموع:</span>
+      <span id="total">0</span> DA
+    </div>
 
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Classique</h3>
-                    <p data-ar="برغر كلاسيكي" data-fr="Burger classique">برغر كلاسيكي</p>
-                    <div class="single-price">
-                        <span class="price">200 DA</span>
-                        <button class="add-btn" onclick="addItem('Classique',200)">+</button>
-                    </div>
-                </div>
-            </div>
+    <form class="form" id="orderForm">
+      <input id="customerName" autocomplete="name" required
+        placeholder="الاسم الكامل">
+      <input id="customerPhone" type="tel" autocomplete="tel" required
+        placeholder="رقم الهاتف">
+      <input id="customerAddress" autocomplete="street-address" required
+        placeholder="عنوان التوصيل">
+      <textarea id="customerNote" placeholder="ملاحظة إضافية (اختياري)"></textarea>
+      <button class="whatsapp" id="sendBtn" type="submit">
+        📱 إرسال الطلب عبر WhatsApp
+      </button>
+    </form>
+  </section>
+</main>
 
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>America</h3>
-                    <p data-ar="برغر على الطريقة الأمريكية" data-fr="Burger style américain">برغر على الطريقة الأمريكية</p>
-                    <div class="single-price">
-                        <span class="price">500 DA</span>
-                        <button class="add-btn" onclick="addItem('America',500)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Forestier</h3>
-                    <p data-ar="برغر بالفطر" data-fr="Burger forestier">برغر بالفطر</p>
-                    <div class="single-price">
-                        <span class="price">500 DA</span>
-                        <button class="add-btn" onclick="addItem('Forestier',500)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Crispy</h3>
-                    <p data-ar="برغر دجاج مقرمش" data-fr="Burger crispy">برغر دجاج مقرمش</p>
-                    <div class="single-price">
-                        <span class="price">400 DA</span>
-                        <button class="add-btn" onclick="addItem('Crispy Burger',400)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Spécial</h3>
-                    <p data-ar="برغر خاص" data-fr="Burger spécial">برغر خاص</p>
-                    <div class="single-price">
-                        <span class="price">500 DA</span>
-                        <button class="add-btn" onclick="addItem('Burger Spécial',500)">+</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- TACOS -->
-    <section class="category">
-        <h2 data-ar="🌯 تاكوس" data-fr="🌯 Tacos">🌯 تاكوس</h2>
-
-        <div class="menu-grid">
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Poulet</h3>
-                    <p>🍗 Poulet</p>
-                    <div class="sizes">
-                        <button class="size-btn" onclick="addItem('Tacos Poulet M',400)">M — 400 DA</button>
-                        <button class="size-btn" onclick="addItem('Tacos Poulet L',600)">L — 600 DA</button>
-                        <button class="size-btn" onclick="addItem('Tacos Poulet XL',800)">XL — 800 DA</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Viande</h3>
-                    <p>🥩 Viande</p>
-                    <div class="sizes">
-                        <button class="size-btn" onclick="addItem('Tacos Viande M',450)">M — 450 DA</button>
-                        <button class="size-btn" onclick="addItem('Tacos Viande L',700)">L — 700 DA</button>
-                        <button class="size-btn" onclick="addItem('Tacos Viande XL',800)">XL — 800 DA</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1624300629298-e9de39c13be5?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Merguez</h3>
-                    <p>🌭 Merguez</p>
-                    <div class="sizes">
-                        <button class="size-btn" onclick="addItem('Tacos Merguez M',500)">M — 500 DA</button>
-                        <button class="size-btn" onclick="addItem('Tacos Merguez L',700)">L — 700 DA</button>
-                        <button class="size-btn" onclick="addItem('Tacos Merguez XL',800)">XL — 800 DA</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Foie</h3>
-                    <p>Foie</p>
-                    <div class="sizes">
-                        <button class="size-btn" onclick="addItem('Tacos Foie M',550)">M — 550 DA</button>
-                        <button class="size-btn" onclick="addItem('Tacos Foie L',700)">L — 700 DA</button>
-                        <button class="size-btn" onclick="addItem('Tacos Foie XL',850)">XL — 850 DA</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Crispy</h3>
-                    <p>Crispy</p>
-                    <div class="sizes">
-                        <button class="size-btn" onclick="addItem('Tacos Crispy M',500)">M — 500 DA</button>
-                        <button class="size-btn" onclick="addItem('Tacos Crispy L',700)">L — 700 DA</button>
-                        <button class="size-btn" onclick="addItem('Tacos Crispy XL',800)">XL — 800 DA</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Cordon Bleu</h3>
-                    <p>Cordon Bleu</p>
-                    <div class="sizes">
-                        <button class="size-btn" onclick="addItem('Tacos Cordon Bleu M',650)">M — 650 DA</button>
-                        <button class="size-btn" onclick="addItem('Tacos Cordon Bleu L',800)">L — 800 DA</button>
-                        <button class="size-btn" onclick="addItem('Tacos Cordon Bleu XL',1000)">XL — 1000 DA</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Spécial</h3>
-                    <p>Tacos spécial</p>
-                    <div class="sizes">
-                        <button class="size-btn" onclick="addItem('Tacos Spécial M',850)">M — 850 DA</button>
-                        <button class="size-btn" onclick="addItem('Tacos Spécial L',1200)">L — 1200 DA</button>
-                        <button class="size-btn" onclick="addItem('Tacos Spécial XL',1500)">XL — 1500 DA</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- SANDWICHES -->
-    <section class="category">
-        <h2 data-ar="🥪 ساندويتش" data-fr="🥪 Sandwiches">🥪 ساندويتش</h2>
-
-        <div class="menu-grid">
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Mariné</h3>
-                    <div class="single-price">
-                        <span class="price">250 DA</span>
-                        <button class="add-btn" onclick="addItem('Sandwich Mariné',250)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Viande</h3>
-                    <div class="single-price">
-                        <span class="price">300 DA</span>
-                        <button class="add-btn" onclick="addItem('Sandwich Viande',300)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1567234669003-dce7a7a8882b?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Merguez</h3>
-                    <div class="single-price">
-                        <span class="price">300 DA</span>
-                        <button class="add-btn" onclick="addItem('Sandwich Merguez',300)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Foie</h3>
-                    <div class="single-price">
-                        <span class="price">350 DA</span>
-                        <button class="add-btn" onclick="addItem('Sandwich Foie',350)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1612392062631-94dd858cba88?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Escalope</h3>
-                    <div class="single-price">
-                        <span class="price">350 DA</span>
-                        <button class="add-btn" onclick="addItem('Sandwich Escalope',350)">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Spécial</h3>
-                    <div class="single-price">
-                        <span class="price">500 DA</span>
-                        <button class="add-btn" onclick="addItem('Sandwich Spécial',500)">+</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- PIZZA -->
-    <section class="category">
-        <h2 data-ar="🍕 البيتزا" data-fr="🍕 Pizza">🍕 البيتزا</h2>
-
-        <div class="menu-grid">
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Margherita</h3>
-                    <div class="sizes">
-                        <button class="size-btn" onclick="addItem('Pizza Margherita M',350)">M — 350 DA</button>
-                        <button class="size-btn" onclick="addItem('Pizza Margherita L',600)">L — 600 DA</button>
-                        <button class="size-btn" onclick="addItem('Pizza Margherita XL',900)">XL — 900 DA</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Poulet</h3>
-                    <div class="sizes">
-                        <button class="size-btn" onclick="addItem('Pizza Poulet M',400)">M — 400 DA</button>
-                        <button class="size-btn" onclick="addItem('Pizza Poulet L',700)">L — 700 DA</button>
-                        <button class="size-btn" onclick="addItem('Pizza Poulet XL',1000)">XL — 1000 DA</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1566843972142-a7fcb70de55a?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Viande</h3>
-                    <div class="sizes">
-                        <button class="size-btn" onclick="addItem('Pizza Viande M',500)">M — 500 DA</button>
-                        <button class="size-btn" onclick="addItem('Pizza Viande L',850)">L — 850 DA</button>
-                        <button class="size-btn" onclick="addItem('Pizza Viande XL',1200)">XL — 1200 DA</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>4 Fromages</h3>
-                    <div class="sizes">
-                        <button class="size-btn" onclick="addItem('Pizza 4 Fromages M',600)">M — 600 DA</button>
-                        <button class="size-btn" onclick="addItem('Pizza 4 Fromages L',900)">L — 900 DA</button>
-                        <button class="size-btn" onclick="addItem('Pizza 4 Fromages XL',1500)">XL — 1500 DA</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Spéciale</h3>
-                    <div class="sizes">
-                        <button class="size-btn" onclick="addItem('Pizza Spéciale M',800)">M — 800 DA</button>
-                        <button class="size-btn" onclick="addItem('Pizza Spéciale L',1400)">L — 1400 DA</button>
-                        <button class="size-btn" onclick="addItem('Pizza Spéciale XL',2000)">XL — 2000 DA</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- POUTINE -->
-    <section class="category">
-        <h2 data-ar="🍟 بوتين" data-fr="🍟 Poutine">🍟 بوتين</h2>
-
-        <div class="menu-grid">
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=80">
-                <div class="card-content">
-                    <h3>Poutine</h3>
-                    <p data-ar="بطاطا، جبن وصوص" data-fr="Frites, fromage et sauce">
-                        بطاطا، جبن وصوص
-                    </p>
-
-                    <div class="single-price">
-                        <span class="price">600 DA</span>
-                        <button class="add-btn" onclick="addItem('Poutine',600)">+</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- CART -->
-    <section class="cart">
-
-        <h2 id="cartTitle">🛒 طلبك</h2>
-
-        <div id="cartItems">
-            <div class="empty" id="emptyCart">
-                السلة فارغة
-            </div>
-        </div>
-
-        <div class="total">
-            <span id="totalLabel">المجموع:</span>
-            <span id="total">0</span> DA
-        </div>
-
-        <div class="order-form">
-
-            <input
-                type="text"
-                id="customerName"
-                placeholder="الاسم">
-
-            <input
-                type="tel"
-                id="customerPhone"
-                placeholder="رقم الهاتف">
-
-            <input
-                type="text"
-                id="customerAddress"
-                placeholder="العنوان">
-
-            <textarea
-                id="customerNote"
-                placeholder="ملاحظة إضافية"></textarea>
-
-            <button class="whatsapp" onclick="sendOrder()">
-                📱 إرسال الطلب عبر WhatsApp
-            </button>
-
-        </div>
-
-    </section>
-
-</div>
-
-<footer>
-    FLAVORA © 2026
-</footer>
-
+<footer>FLAVORA © 2026</footer>
 
 <script>
+const photo = {
+  burger1: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=80",
+  burger2: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=700&q=80",
+  burger3: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=700&q=80",
+  burger4: "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=700&q=80",
+  taco1: "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=700&q=80",
+  taco2: "https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto=format&fit=crop&w=700&q=80",
+  taco3: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=700&q=80",
+  taco4: "https://images.unsplash.com/photo-1624300629298-e9de39c13be5?auto=format&fit=crop&w=700&q=80",
+  sandwich1: "https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=700&q=80",
+  sandwich2: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=700&q=80",
+  sandwich3: "https://images.unsplash.com/photo-1567234669003-dce7a7a8882b?auto=format&fit=crop&w=700&q=80",
+  pizza1: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=700&q=80",
+  pizza2: "https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&fit=crop&w=700&q=80",
+  pizza3: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=80",
+  pizza4: "https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=700&q=80",
+  poutine: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=700&q=80",
+  gratin1: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=700&q=80",
+  gratin2: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=700&q=80"
+};
 
+const menuData = [
+  {
+    id: "burgers", ar: "🍔 البرغر", fr: "🍔 Burgers",
+    items: [
+      {id:"burger-classique",ar:"كلاسيك",fr:"Classique",price:200,img:photo.burger1},
+      {id:"burger-america",ar:"أمريكا",fr:"America",price:500,img:photo.burger2},
+      {id:"burger-forestier",ar:"فورستيير",fr:"Forestier",price:500,img:photo.burger4},
+      {id:"burger-crispy",ar:"دجاج مقرمش",fr:"Crispy",price:400,img:photo.burger3},
+      {id:"burger-special",ar:"خاص",fr:"Spécial",price:500,img:photo.burger1}
+    ]
+  },
+  {
+    id:"tacos", ar:"🌯 التاكوس", fr:"🌯 Tacos",
+    items:[
+      {id:"t-poulet",ar:"دجاج",fr:"Poulet",img:photo.taco1,sizes:[["M",400],["L",600],["XL",800]]},
+      {id:"t-viande",ar:"لحم",fr:"Viande",img:photo.taco2,sizes:[["M",450],["L",700],["XL",800]]},
+      {id:"t-merguez",ar:"مرڨاز",fr:"Merguez",img:photo.taco3,sizes:[["M",500],["L",700],["XL",800]]},
+      {id:"t-foie",ar:"كبدة",fr:"Foie",img:photo.taco4,sizes:[["M",550],["L",700],["XL",850]]},
+      {id:"t-crispy",ar:"مقرمش",fr:"Crispy",img:photo.taco1,sizes:[["M",500],["L",700],["XL",800]]},
+      {id:"t-cordon",ar:"كوردون بلو",fr:"Cordon Bleu",img:photo.taco2,sizes:[["M",650],["L",800],["XL",1000]]},
+      {id:"t-special",ar:"خاص",fr:"Spécial",img:photo.taco3,sizes:[["M",850],["L",1200],["XL",1500]]}
+    ]
+  },
+  {
+    id:"sandwiches", ar:"🥪 السندويتشات", fr:"🥪 Sandwiches",
+    items:[
+      {id:"s-marine",ar:"ماريني",fr:"Mariné",price:250,img:photo.sandwich1},
+      {id:"s-viande",ar:"لحم",fr:"Viande",price:300,img:photo.sandwich2},
+      {id:"s-merguez",ar:"مرڨاز",fr:"Merguez",price:300,img:photo.sandwich3},
+      {id:"s-foie",ar:"كبدة",fr:"Foie",price:350,img:photo.sandwich1},
+      {id:"s-escalope",ar:"إسكالوب",fr:"Escalope",price:350,img:photo.sandwich2},
+      {id:"s-special",ar:"خاص",fr:"Spécial",price:500,img:photo.sandwich3}
+    ]
+  },
+  {
+    id:"pizza", ar:"🍕 البيتزا", fr:"🍕 Pizza",
+    items:[
+      {id:"p-margherita",ar:"مارغريتا",fr:"Margherita",img:photo.pizza1,sizes:[["M",350],["L",600],["XL",900]]},
+      {id:"p-poulet",ar:"دجاج",fr:"Poulet",img:photo.pizza2,sizes:[["M",400],["L",700],["XL",1000]]},
+      {id:"p-viande",ar:"لحم",fr:"Viande",img:photo.pizza3,sizes:[["M",500],["L",850],["XL",1200]]},
+      {id:"p-4fromages",ar:"أربعة أجبان",fr:"4 Fromages",img:photo.pizza4,sizes:[["M",600],["L",900],["XL",1500]]},
+      {id:"p-special",ar:"خاصة",fr:"Spéciale",img:photo.pizza1,sizes:[["M",800],["L",1400],["XL",2000]]}
+    ]
+  },
+  {
+    id:"poutine", ar:"🍟 البوتين", fr:"🍟 Poutine",
+    items:[
+      {id:"poutine-classique",ar:"بوتين",fr:"Poutine",price:600,img:photo.poutine}
+    ]
+  },
+  {
+    id:"gratin", ar:"🧀 الغراتان", fr:"🧀 Gratins",
+    items:[
+      {id:"g-poulet",ar:"دجاج",fr:"Poulet",price:350,img:photo.gratin1},
+      {id:"g-viande",ar:"لحم",fr:"Viande",price:400,img:photo.gratin2},
+      {id:"g-merguez",ar:"مرڨاز",fr:"Merguez",price:400,img:photo.gratin1},
+      {id:"g-foie",ar:"كبدة",fr:"Foie",price:400,img:photo.gratin2}
+    ]
+  }
+];
+
+let language = "ar";
 let cart = [];
-let currentLanguage = "ar";
 
-function addItem(name, price){
-
-    const existing = cart.find(item => item.name === name);
-
-    if(existing){
-        existing.qty++;
-    }else{
-        cart.push({
-            name:name,
-            price:price,
-            qty:1
-        });
-    }
-
-    updateCart();
-
-    document.querySelector(".cart").scrollIntoView({
-        behavior:"smooth",
-        block:"center"
-    });
+function itemName(item) {
+  return language === "ar" ? item.ar : item.fr;
 }
 
-
-function increase(index){
-    cart[index].qty++;
-    updateCart();
+function money(amount) {
+  return amount.toLocaleString("fr-FR") + " DA";
 }
 
+function renderMenu() {
+  const root = document.getElementById("menu");
+  root.innerHTML = "";
 
-function decrease(index){
+  menuData.forEach(category => {
+    const section = document.createElement("section");
+    section.className = "category";
 
-    cart[index].qty--;
+    const title = document.createElement("h2");
+    title.textContent = language === "ar" ? category.ar : category.fr;
+    section.appendChild(title);
 
-    if(cart[index].qty <= 0){
-        cart.splice(index,1);
-    }
+    const grid = document.createElement("div");
+    grid.className = "grid";
 
-    updateCart();
-}
+    category.items.forEach(item => {
+      const card = document.createElement("article");
+      card.className = "card";
 
+      const img = document.createElement("img");
+      img.src = item.img;
+      img.alt = itemName(item);
+      img.loading = "lazy";
+      img.onerror = function() {
+        this.style.display = "none";
+      };
+      card.appendChild(img);
 
-function removeItem(index){
-    cart.splice(index,1);
-    updateCart();
-}
+      const body = document.createElement("div");
+      body.className = "card-body";
 
+      const h3 = document.createElement("h3");
+      h3.textContent = itemName(item);
+      body.appendChild(h3);
 
-function updateCart(){
+      const desc = document.createElement("div");
+      desc.className = "desc";
+      desc.textContent = item.sizes
+        ? (language === "ar" ? "اختر الحجم المناسب" : "Choisissez la taille")
+        : "";
+      body.appendChild(desc);
 
-    const container = document.getElementById("cartItems");
+      if (item.sizes) {
+        const sizes = document.createElement("div");
+        sizes.className = "sizes";
 
-    container.innerHTML = "";
-
-    if(cart.length === 0){
-
-        container.innerHTML =
-        `<div class="empty" id="emptyCart">
-            ${currentLanguage === "ar" ? "السلة فارغة" : "Le panier est vide"}
-        </div>`;
-
-        document.getElementById("total").textContent = "0";
-
-        return;
-    }
-
-    let total = 0;
-
-    cart.forEach((item,index)=>{
-
-        const subtotal = item.price * item.qty;
-        total += subtotal;
-
-        const div = document.createElement("div");
-
-        div.className = "cart-item";
-
-        div.innerHTML = `
-            <div class="cart-info">
-                <strong>${item.name}</strong>
-                <small>${item.price} DA × ${item.qty} = ${subtotal} DA</small>
-            </div>
-
-            <div class="quantity">
-                <button class="minus" onclick="decrease(${index})">−</button>
-                <span>${item.qty}</span>
-                <button class="plus" onclick="increase(${index})">+</button>
-            </div>
-
-            <button class="remove" onclick="removeItem(${index})">
-                ×
-            </button>
-        `;
-
-        container.appendChild(div);
-    });
-
-    document.getElementById("total").textContent = total;
-}
-
-
-function sendOrder(){
-
-    if(cart.length === 0){
-
-        alert(
-            currentLanguage === "ar"
-            ? "أضف منتجًا إلى السلة أولاً."
-            : "Ajoutez d'abord un produit au panier."
-        );
-
-        return;
-    }
-
-    const name =
-        document.getElementById("customerName").value.trim();
-
-    const phone =
-        document.getElementById("customerPhone").value.trim();
-
-    const address =
-        document.getElementById("customerAddress").value.trim();
-
-    const note =
-        document.getElementById("customerNote").value.trim();
-
-    if(!name || !phone || !address){
-
-        alert(
-            currentLanguage === "ar"
-            ? "يرجى إدخال الاسم ورقم الهاتف والعنوان."
-            : "Veuillez saisir le nom, le téléphone et l'adresse."
-        );
-
-        return;
-    }
-
-    let message = "";
-
-    if(currentLanguage === "ar"){
-
-        message += "🍔 FLAVORA - طلب جديد\n\n";
-
-        message += "👤 الاسم: " + name + "\n";
-        message += "📞 الهاتف: " + phone + "\n";
-        message += "📍 العنوان: " + address + "\n";
-
-        if(note){
-            message += "📝 ملاحظة: " + note + "\n";
-        }
-
-        message += "\n🛒 الطلب:\n";
-
-        cart.forEach(item => {
-
-            message +=
-            "• " +
-            item.name +
-            " × " +
-            item.qty +
-            " = " +
-            (item.price * item.qty) +
-            " DA\n";
-
+        item.sizes.forEach(([size, price]) => {
+          const btn = document.createElement("button");
+          btn.className = "size-btn";
+          btn.textContent = size + " — " + money(price);
+          btn.type = "button";
+          btn.onclick = () => addToCart(
+            item.id + "-" + size,
+            itemName(item) + " (" + size + ")",
+            price
+          );
+          sizes.appendChild(btn);
         });
 
-        const total =
-            cart.reduce(
-                (sum,item) =>
-                sum + item.price * item.qty,
-                0
-            );
+        body.appendChild(sizes);
+      } else {
+        const line = document.createElement("div");
+        line.className = "price-line";
 
-        message += "\n💰 المجموع: " + total + " DA";
+        const price = document.createElement("span");
+        price.className = "price";
+        price.textContent = money(item.price);
 
-    }else{
+        const btn = document.createElement("button");
+        btn.className = "add";
+        btn.type = "button";
+        btn.textContent = language === "ar" ? "أضف +" : "Ajouter +";
+        btn.onclick = () => addToCart(item.id, itemName(item), item.price);
 
-        message += "🍔 FLAVORA - NOUVELLE COMMANDE\n\n";
+        line.append(price, btn);
+        body.appendChild(line);
+      }
 
-        message += "👤 Nom: " + name + "\n";
-        message += "📞 Téléphone: " + phone + "\n";
-        message += "📍 Adresse: " + address + "\n";
-
-        if(note){
-            message += "📝 Note: " + note + "\n";
-        }
-
-        message += "\n🛒 Commande:\n";
-
-        cart.forEach(item => {
-
-            message +=
-            "• " +
-            item.name +
-            " × " +
-            item.qty +
-            " = " +
-            (item.price * item.qty) +
-            " DA\n";
-
-        });
-
-        const total =
-            cart.reduce(
-                (sum,item) =>
-                sum + item.price * item.qty,
-                0
-            );
-
-        message += "\n💰 Total: " + total + " DA";
-    }
-
-    const whatsappNumber = "213696086599";
-
-    const url =
-        "https://wa.me/" +
-        whatsappNumber +
-        "?text=" +
-        encodeURIComponent(message);
-
-    window.open(url,"_blank");
-}
-
-
-function setLanguage(lang){
-
-    currentLanguage = lang;
-
-    document.documentElement.lang = lang;
-
-    if(lang === "ar"){
-
-        document.documentElement.dir = "rtl";
-
-        document.getElementById("subtitle").textContent =
-            "اطلب وجبتك بسهولة";
-
-        document.getElementById("cartTitle").textContent =
-            "🛒 طلبك";
-
-        document.getElementById("totalLabel").textContent =
-            "المجموع:";
-
-        document.getElementById("customerName").placeholder =
-            "الاسم";
-
-        document.getElementById("customerPhone").placeholder =
-            "رقم الهاتف";
-
-        document.getElementById("customerAddress").placeholder =
-            "العنوان";
-
-        document.getElementById("customerNote").placeholder =
-            "ملاحظة إضافية";
-
-        document.querySelector(".whatsapp").textContent =
-            "📱 إرسال الطلب عبر WhatsApp";
-
-    }else{
-
-        document.documentElement.dir = "ltr";
-
-        document.getElementById("subtitle").textContent =
-            "Commandez votre repas facilement";
-
-        document.getElementById("cartTitle").textContent =
-            "🛒 Votre commande";
-
-        document.getElementById("totalLabel").textContent =
-            "Total:";
-
-        document.getElementById("customerName").placeholder =
-            "Nom";
-
-        document.getElementById("customerPhone").placeholder =
-            "Téléphone";
-
-        document.getElementById("customerAddress").placeholder =
-            "Adresse";
-
-        document.getElementById("customerNote").placeholder =
-            "Note supplémentaire";
-
-        document.querySelector(".whatsapp").textContent =
-            "📱 Commander via WhatsApp";
-    }
-
-    document.querySelectorAll("[data-ar]").forEach(el => {
-
-        el.textContent =
-            lang === "ar"
-            ? el.dataset.ar
-            : el.dataset.fr;
-
+      card.appendChild(body);
+      grid.appendChild(card);
     });
 
-    updateCart();
+    section.appendChild(grid);
+    root.appendChild(section);
+  });
 }
 
-updateCart();
+function addToCart(id, name, price) {
+  const found = cart.find(item => item.id === id);
+  if (found) {
+    found.qty++;
+  } else {
+    cart.push({id, name, price, qty:1});
+  }
+  renderCart();
 
+  const cartSection = document.getElementById("cart");
+  cartSection.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+function changeQty(id, amount) {
+  const item = cart.find(entry => entry.id === id);
+  if (!item) return;
+  item.qty += amount;
+  if (item.qty <= 0) {
+    cart = cart.filter(entry => entry.id !== id);
+  }
+  renderCart();
+}
+
+function deleteItem(id) {
+  cart = cart.filter(item => item.id !== id);
+  renderCart();
+}
+
+function renderCart() {
+  const root = document.getElementById("cartItems");
+  root.innerHTML = "";
+
+  if (cart.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = language === "ar" ? "السلة فارغة" : "Le panier est vide";
+    root.appendChild(empty);
+  }
+
+  cart.forEach(item => {
+    const row = document.createElement("div");
+    row.className = "cart-row";
+
+    const name = document.createElement("div");
+    name.className = "cart-name";
+
+    const strong = document.createElement("strong");
+    strong.textContent = item.name;
+
+    const small = document.createElement("small");
+    small.textContent = money(item.price * item.qty);
+
+    name.append(strong, small);
+
+    const qty = document.createElement("div");
+    qty.className = "qty";
+
+    const minus = document.createElement("button");
+    minus.className = "minus";
+    minus.textContent = "−";
+    minus.type = "button";
+    minus.setAttribute("aria-label", "Decrease quantity");
+    minus.onclick = () => changeQty(item.id, -1);
+
+    const count = document.createElement("span");
+    count.textContent = item.qty;
+
+    const plus = document.createElement("button");
+    plus.className = "plus";
+    plus.textContent = "+";
+    plus.type = "button";
+    plus.setAttribute("aria-label", "Increase quantity");
+    plus.onclick = () => changeQty(item.id, 1);
+
+    qty.append(minus, count, plus);
+
+    const remove = document.createElement("button");
+    remove.className = "remove";
+    remove.type = "button";
+    remove.textContent = language === "ar" ? "حذف" : "Retirer";
+    remove.onclick = () => deleteItem(item.id);
+
+    row.append(name, qty, remove);
+    root.appendChild(row);
+  });
+
+  const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  document.getElementById("total").textContent =
+    total.toLocaleString("fr-FR");
+}
+
+function setLanguage(lang) {
+  language = lang;
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+
+  document.getElementById("arBtn").classList.toggle("active", lang === "ar");
+  document.getElementById("frBtn").classList.toggle("active", lang === "fr");
+
+  document.getElementById("tagline").textContent = lang === "ar"
+    ? "وجبتك المفضلة، على ذوقك"
+    : "Vos plats préférés, à votre goût";
+
+  document.getElementById("heroTitle").textContent = lang === "ar"
+    ? "مرحبا بك في FLAVORA"
+    : "Bienvenue chez FLAVORA";
+
+  document.getElementById("heroText").textContent = lang === "ar"
+    ? "اختار وجبتك، زيدها للسلة، وأرسل طلبك مباشرة عبر WhatsApp."
+    : "Choisissez vos plats, ajoutez-les au panier et commandez sur WhatsApp.";
+
+  document.getElementById("cartTitle").textContent = lang === "ar"
+    ? "🛒 سلة الطلبات"
+    : "🛒 Votre panier";
+
+  document.getElementById("totalLabel").textContent = lang === "ar"
+    ? "المجموع:"
+    : "Total :";
+
+  document.getElementById("customerName").placeholder = lang === "ar"
+    ? "الاسم الكامل"
+    : "Nom complet";
+
+  document.getElementById("customerPhone").placeholder = lang === "ar"
+    ? "رقم الهاتف"
+    : "Numéro de téléphone";
+
+  document.getElementById("customerAddress").placeholder = lang === "ar"
+    ? "عنوان التوصيل"
+    : "Adresse de livraison";
+
+  document.getElementById("customerNote").placeholder = lang === "ar"
+    ? "ملاحظة إضافية (اختياري)"
+    : "Note supplémentaire (facultatif)";
+
+  document.getElementById("sendBtn").textContent = lang === "ar"
+    ? "📱 إرسال الطلب عبر WhatsApp"
+    : "📱 Envoyer la commande par WhatsApp";
+
+  renderMenu();
+  renderCart();
+}
+
+document.getElementById("orderForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  if (cart.length === 0) {
+    alert(language === "ar"
+      ? "أضف صنفًا إلى السلة أولاً."
+      : "Ajoutez d'abord un article au panier.");
+    return;
+  }
+
+  const name = document.getElementById("customerName").value.trim();
+  const phone = document.getElementById("customerPhone").value.trim();
+  const address = document.getElementById("customerAddress").value.trim();
+  const note = document.getElementById("customerNote").value.trim();
+
+  if (!name || !phone || !address) {
+    alert(language === "ar"
+      ? "أدخل الاسم ورقم الهاتف والعنوان."
+      : "Saisissez le nom, le téléphone et l'adresse.");
+    return;
+  }
+
+  const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+  let message = language === "ar"
+    ? "🍔 FLAVORA - طلب جديد\n\n"
+    : "🍔 FLAVORA - NOUVELLE COMMANDE\n\n";
+
+  message += (language === "ar" ? "الاسم: " : "Nom : ") + name + "\n";
+  message += (language === "ar" ? "الهاتف: " : "Téléphone : ") + phone + "\n";
+  message += (language === "ar" ? "العنوان: " : "Adresse : ") + address + "\n";
+
+  if (note) {
+    message += (language === "ar" ? "ملاحظة: " : "Note : ") + note + "\n";
+  }
+
+  message += "\n" + (language === "ar" ? "الطلب:" : "Commande :") + "\n";
+
+  cart.forEach(item => {
+    message += "• " + item.name + " × " + item.qty +
+      " = " + (item.price * item.qty) + " DA\n";
+  });
+
+  message += "\n" + (language === "ar" ? "المجموع: " : "Total : ") +
+    total + " DA";
+
+  const whatsappNumber = "213696086599";
+  const url = "https://wa.me/" + whatsappNumber +
+    "?text=" + encodeURIComponent(message);
+
+  window.open(url, "_blank", "noopener");
+});
+
+renderMenu();
+renderCart();
 </script>
-
 </body>
 </html>
