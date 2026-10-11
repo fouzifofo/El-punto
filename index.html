@@ -1,1538 +1,282 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#111111">
-  <meta name="description" content="FLAVORA - اطلب أكلك بسهولة عبر الإنترنت">
-  <title>FLAVORA | طلب الأكل</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    :root {
-      --black: #111111;
-      --red: #e30613;
-      --yellow: #ffd400;
-      --white: #ffffff;
-      --light: #f5f5f5;
-      --gray: #777;
-      --border: #e5e5e5;
-      --green: #25d366;
-    }
-
-    body {
-      background: var(--light);
-      color: var(--black);
-      padding-bottom: 75px;
-    }
-
-    button,
-    input,
-    textarea {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    /* HEADER */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: var(--black);
-      color: white;
-      padding: 14px 16px;
-      text-align: center;
-      box-shadow: 0 3px 15px rgba(0,0,0,.25);
-    }
-
-    .logo {
-      font-size: 31px;
-      font-weight: 900;
-      letter-spacing: 3px;
-      color: var(--yellow);
-    }
-
-    .header-subtitle {
-      margin-top: 4px;
-      font-size: 13px;
-      color: #ddd;
-    }
-
-    .language-btn {
-      position: absolute;
-      top: 13px;
-      left: 12px;
-      background: transparent;
-      color: var(--yellow);
-      border: 1px solid var(--yellow);
-      border-radius: 20px;
-      padding: 6px 12px;
-      font-weight: bold;
-    }
-
-    [dir="ltr"] .language-btn {
-      left: auto;
-      right: 12px;
-    }
-
-    /* HERO */
-    .hero {
-      background:
-        linear-gradient(135deg, rgba(0,0,0,.96), rgba(35,35,35,.96));
-      color: white;
-      text-align: center;
-      padding: 38px 18px;
-    }
-
-    .hero h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      color: #ddd;
-      line-height: 1.7;
-      font-size: 15px;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      margin-top: 16px;
-      background: var(--red);
-      color: white;
-      padding: 8px 15px;
-      border-radius: 20px;
-      font-weight: bold;
-      font-size: 13px;
-    }
-
-    /* CONTAINER */
-    .container {
-      width: 100%;
-      max-width: 900px;
-      margin: auto;
-      padding: 15px;
-    }
-
-    /* CATEGORY */
-    .category {
-      margin-top: 25px;
-    }
-
-    .category-title {
-      background: var(--black);
-      color: var(--yellow);
-      padding: 13px 15px;
-      border-radius: 13px;
-      font-size: 21px;
-      margin-bottom: 12px;
-    }
-
-    /* PRODUCT */
-    .product {
-      background: var(--white);
-      border-radius: 15px;
-      padding: 15px;
-      margin-bottom: 12px;
-      box-shadow: 0 2px 9px rgba(0,0,0,.07);
-    }
-
-    .product-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .product-name {
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    .price {
-      color: var(--red);
-      font-weight: 900;
-      white-space: nowrap;
-    }
-
-    .sizes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 13px;
-    }
-
-    .size-btn {
-      flex: 1;
-      min-width: 90px;
-      background: #fafafa;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      padding: 10px 8px;
-      font-weight: bold;
-    }
-
-    .size-btn:hover {
-      background: var(--yellow);
-      border-color: var(--yellow);
-    }
-
-    .add-btn {
-      width: 100%;
-      margin-top: 12px;
-      border: none;
-      background: var(--red);
-      color: white;
-      padding: 12px;
-      border-radius: 9px;
-      font-weight: bold;
-      transition: .2s;
-    }
-
-    .add-btn:active,
-    .whatsapp-btn:active {
-      transform: scale(.98);
-    }
-
-    /* CART */
-    .cart {
-      background: white;
-      border-radius: 16px;
-      margin-top: 30px;
-      padding: 18px;
-      box-shadow: 0 2px 12px rgba(0,0,0,.09);
-    }
-
-    .cart-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-
-    .cart-title {
-      font-size: 22px;
-    }
-
-    .cart-count {
-      background: var(--yellow);
-      color: var(--black);
-      border-radius: 20px;
-      padding: 4px 10px;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .empty {
-      text-align: center;
-      color: var(--gray);
-      padding: 20px 5px;
-    }
-
-    .cart-item {
-      border-bottom: 1px solid #eee;
-      padding: 13px 0;
-    }
-
-    .cart-item:last-child {
-      border-bottom: none;
-    }
-
-    .cart-item-info {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .cart-item-name {
-      font-weight: bold;
-      line-height: 1.5;
-    }
-
-    .cart-item-price {
-      color: var(--red);
-      font-weight: bold;
-      white-space: nowrap;
-    }
-
-    .cart-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 9px;
-    }
-
-    .quantity-btn {
-      width: 34px;
-      height: 34px;
-      border: none;
-      border-radius: 8px;
-      background: var(--black);
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    .quantity {
-      min-width: 28px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    .remove-btn {
-      margin-right: auto;
-      border: none;
-      background: #eee;
-      color: #333;
-      padding: 7px 10px;
-      border-radius: 7px;
-      font-size: 12px;
-    }
-
-    [dir="ltr"] .remove-btn {
-      margin-right: 0;
-      margin-left: auto;
-    }
-
-    .total-box {
-      border-top: 2px solid #eee;
-      margin-top: 12px;
-      padding-top: 15px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 21px;
-      font-weight: 900;
-    }
-
-    .total-value {
-      color: var(--red);
-    }
-
-    /* CUSTOMER */
-    .customer {
-      margin-top: 25px;
-    }
-
-    .customer h3 {
-      font-size: 19px;
-      margin-bottom: 10px;
-    }
-
-    .field {
-      margin-bottom: 10px;
-    }
-
-    .field label {
-      display: block;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    .field input,
-    .field textarea {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      padding: 13px;
-      outline: none;
-      background: #fff;
-    }
-
-    .field textarea {
-      min-height: 85px;
-      resize: vertical;
-    }
-
-    .field input:focus,
-    .field textarea:focus {
-      border-color: var(--yellow);
-    }
-
-    .whatsapp-btn {
-      width: 100%;
-      margin-top: 7px;
-      border: none;
-      background: var(--green);
-      color: white;
-      padding: 15px;
-      border-radius: 10px;
-      font-size: 17px;
-      font-weight: 900;
-    }
-
-    .clear-btn {
-      width: 100%;
-      margin-top: 8px;
-      background: white;
-      border: 1px solid #ddd;
-      color: #555;
-      padding: 10px;
-      border-radius: 9px;
-      font-size: 13px;
-    }
-
-    /* FOOTER */
-    footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 900;
-      background: var(--black);
-      color: white;
-      text-align: center;
-      padding: 11px;
-      font-size: 13px;
-    }
-
-    /* MOBILE */
-    @media (max-width: 600px) {
-      .logo {
-        font-size: 27px;
-      }
-
-      .hero {
-        padding: 30px 15px;
-      }
-
-      .hero h1 {
-        font-size: 24px;
-      }
-
-      .product-name {
-        font-size: 16px;
-      }
-
-      .price {
-        font-size: 14px;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111">
+<title>FLAVORA</title>
+<style>
+:root{--y:#f5c542;--b:#111;--p:#1d1d1d;--t:#f7f4ea}
+*{box-sizing:border-box}
+body{margin:0;background:var(--b);color:var(--t);font-family:system-ui,Arial}
+header{text-align:center;padding:24px 12px;background:linear-gradient(130deg,#111,#332a0b);border-bottom:1px solid #66531c}
+.logo{font-size:clamp(38px,9vw,58px);font-weight:950;letter-spacing:3px;color:var(--y);margin:0}
+header p{margin:6px}
+button,.btn{border:0;border-radius:10px;background:var(--y);padding:10px 13px;font-weight:800;cursor:pointer;color:#111}
+button:disabled{opacity:.4}
+.alt{background:#333;color:white;border:1px solid #555}
+.wrap{max-width:1200px;margin:auto;padding:14px}
+.notice{background:#211d10;border:1px solid #51451f;padding:12px;border-radius:12px;margin-bottom:14px;color:#e8dba8;font-size:13px}
+nav{display:flex;gap:7px;overflow:auto;position:sticky;top:0;background:#111;padding:7px 0;z-index:2}
+nav button{white-space:nowrap;padding:9px}
+.title{color:var(--y);font-size:22px;margin:22px 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:11px}
+.card{background:var(--p);border:1px solid #333;border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.card img{width:100%;height:140px;object-fit:cover;background:#292929}
+.body{padding:10px;display:flex;flex-direction:column;gap:8px;flex:1}
+.name{font-weight:850}
+.price{color:var(--y);font-weight:900}
+.muted{color:#bdb8aa;font-size:12px}
+.cart,.admin{background:#1a1a1a;border:1px solid #383838;border-radius:14px;padding:13px;margin-top:18px}
+.row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #333}
+.qty{display:flex;gap:5px;align-items:center}
+.qty button{padding:5px 10px}
+.total{font-size:22px;color:var(--y);font-weight:900;margin:14px 0}
+input,textarea{width:100%;background:#101010;color:white;border:1px solid #555;border-radius:9px;padding:10px;margin:4px 0}
+form{display:grid;gap:5px}
+.hidden{display:none}
+footer{text-align:center;color:#aaa;padding:25px;font-size:12px}
+@media(min-width:850px){
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px}
+.cart{align-self:start;position:sticky;top:60px}
+.grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+.card img{height:160px}
+}
+</style>
 </head>
-
 <body>
-
-  <header>
-    <button class="language-btn" id="languageBtn" onclick="toggleLanguage()">FR</button>
-
-    <div class="logo">FLAVORA</div>
-
-    <div class="header-subtitle" id="headerSubtitle">
-      اطلب أكلك بسهولة
-    </div>
-  </header>
-
-  <section class="hero">
-    <h1 id="heroTitle">أهلاً بك في FLAVORA</h1>
-
-    <p id="heroText">
-      اختار وجبتك، أضفها إلى السلة، وأرسل طلبك مباشرة عبر WhatsApp.
-    </p>
-
-    <span class="hero-badge" id="heroBadge">
-      طلب سريع وسهل
-    </span>
-  </section>
-
-  <main class="container">
-
-    <!-- BURGERS -->
-    <section class="category">
-
-      <h2 class="category-title"
-          data-ar="🍔 البرغر"
-          data-fr="🍔 Burgers">
-        🍔 البرغر
-      </h2>
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name"
-                data-ar="كلاسيك"
-                data-fr="Classique">
-            كلاسيك
-          </span>
-          <span class="price">200 DA</span>
-        </div>
-
-        <button class="add-btn"
-                onclick="addItem('كلاسيك / Classique', 200)">
-          إضافة إلى السلة
-        </button>
-      </div>
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name"
-                data-ar="أمريكا"
-                data-fr="America">
-            أمريكا
-          </span>
-          <span class="price">500 DA</span>
-        </div>
-
-        <button class="add-btn"
-                onclick="addItem('أمريكا / America', 500)">
-          إضافة إلى السلة
-        </button>
-      </div>
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name"
-                data-ar="فورستيير"
-                data-fr="Forestier">
-            فورستيير
-          </span>
-          <span class="price">500 DA</span>
-        </div>
-
-        <button class="add-btn"
-                onclick="addItem('فورستيير / Forestier', 500)">
-          إضافة إلى السلة
-        </button>
-      </div>
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name"
-                data-ar="كريسبي"
-                data-fr="Crispy">
-            كريسبي
-          </span>
-          <span class="price">400 DA</span>
-        </div>
-
-        <button class="add-btn"
-                onclick="addItem('كريسبي / Crispy', 400)">
-          إضافة إلى السلة
-        </button>
-      </div>
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name"
-                data-ar="برغر خاص"
-                data-fr="Burger Spécial">
-            برغر خاص
-          </span>
-          <span class="price">500 DA</span>
-        </div>
-
-        <button class="add-btn"
-                onclick="addItem('برغر خاص / Burger Spécial', 500)">
-          إضافة إلى السلة
-        </button>
-      </div>
-
-    </section>
-
-
-    <!-- TACOS -->
-    <section class="category">
-
-      <h2 class="category-title"
-          data-ar="🌯 تاكوس"
-          data-fr="🌯 Tacos">
-        🌯 تاكوس
-      </h2>
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name">دجاج / Poulet</span>
-        </div>
-
-        <div class="sizes">
-          <button class="size-btn"
-                  onclick="addItem('تاكوس دجاج M / Tacos Poulet M',400)">
-            M - 400 DA
-          </button>
-
-          <button class="size-btn"
-                  onclick="addItem('تاكوس دجاج L / Tacos Poulet L',600)">
-            L - 600 DA
-          </button>
-
-          <button class="size-btn"
-                  onclick="addItem('تاكوس دجاج XL / Tacos Poulet XL',800)">
-            XL - 800 DA
-          </button>
-        </div>
-      </div>
-
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name">لحم / Viande</span>
-        </div>
-
-        <div class="sizes">
-          <button class="size-btn"
-                  onclick="addItem('تاكوس لحم M / Tacos Viande M',450)">
-            M - 450 DA
-          </button>
-
-          <button class="size-btn"
-                  onclick="addItem('تاكوس لحم L / Tacos Viande L',700)">
-            L - 700 DA
-          </button>
-
-          <button class="size-btn"
-                  onclick="addItem('تاكوس لحم XL / Tacos Viande XL',800)">
-            XL - 800 DA
-          </button>
-        </div>
-      </div>
-
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name">مرڨاز / Merguez</span>
-        </div>
-
-        <div class="sizes">
-          <button class="size-btn"
-                  onclick="addItem('تاكوس مرڨاز M / Tacos Merguez M',500)">
-            M - 500 DA
-          </button>
-
-          <button class="size-btn"
-                  onclick="addItem('تاكوس مرڨاز L / Tacos Merguez L',700)">
-            L - 700 DA
-          </button>
-
-          <button class="size-btn"
-                  onclick="addItem('تاكوس مرڨاز XL / Tacos Merguez XL',800)">
-            XL - 800 DA
-          </button>
-        </div>
-      </div>
-
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name">كبدة / Foie</span>
-        </div>
-
-        <div class="sizes">
-          <button class="size-btn"
-                  onclick="addItem('تاكوس كبدة M / Tacos Foie M',550)">
-            M - 550 DA
-          </button>
-
-          <button class="size-btn"
-                  onclick="addItem('تاكوس كبدة L / Tacos Foie L',700)">
-            L - 700 DA
-          </button>
-
-          <button class="size-btn"
-                  onclick="addItem('تاكوس كبدة XL / Tacos Foie XL',850)">
-            XL - 850 DA
-          </button>
-        </div>
-      </div>
-
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name">كريسبي / Crispy</span>
-        </div>
-
-        <div class="sizes">
-          <button class="size-btn"
-                  onclick="addItem('تاكوس كريسبي M / Tacos Crispy M',500)">
-            M - 500 DA
-          </button>
-
-          <button class="size-btn"
-                  onclick="addItem('تاكوس كريسبي L / Tacos Crispy L',700)">
-            L - 700 DA
-          </button>
-
-          <button class="size-btn"
-                  onclick="addItem('تاكوس كريسبي XL / Tacos Crispy XL',800)">
-            XL - 800 DA
-          </button>
-        </div>
-      </div>
-
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name">كوردون بلو / Cordon Bleu</span>
-        </div>
-
-        <div class="sizes">
-          <button class="size-btn"
-                  onclick="addItem('تاكوس كوردون بلو M / Tacos Cordon Bleu M',650)">
-            M - 650 DA
-          </button>
-
-          <button class="size-btn"
-                  onclick="addItem('تاكوس كوردون بلو L / Tacos Cordon Bleu L',800)">
-            L - 800 DA
-          </button>
-
-          <button class="size-btn"
-                  onclick="addItem('تاكوس كوردون بلو XL / Tacos Cordon Bleu XL',1000)">
-            XL - 1000 DA
-          </button>
-        </div>
-      </div>
-
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name">خاص / Spécial</span>
-        </div>
-
-        <div class="sizes">
-          <button class="size-btn"
-                  onclick="addItem('تاكوس خاص M / Tacos Spécial M',850)">
-            M - 850 DA
-          </button>
-
-          <button class="size-btn"
-                  onclick="addItem('تاكوس خاص L / Tacos Spécial L',1200)">
-            L - 1200 DA
-          </button>
-
-          <button class="size-btn"
-                  onclick="addItem('تاكوس خاص XL / Tacos Spécial XL',1500)">
-            XL - 1500 DA
-          </button>
-        </div>
-      </div>
-
-    </section>
-
-
-    <!-- SANDWICHES -->
-    <section class="category">
-
-      <h2 class="category-title"
-          data-ar="🥪 الساندويتشات"
-          data-fr="🥪 Sandwichs">
-        🥪 الساندويتشات
-      </h2>
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name">ماريني / Mariné</span>
-          <span class="price">250 DA</span>
-        </div>
-
-        <button class="add-btn"
-                onclick="addItem('ساندويتش ماريني / Sandwich Mariné',250)">
-          إضافة إلى السلة
-        </button>
-      </div>
-
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name">لحم / Viande</span>
-          <span class="price">300 DA</span>
-        </div>
-
-        <button class="add-btn"
-                onclick="addItem('ساندويتش لحم / Sandwich Viande',300)">
-          إضافة إلى السلة
-        </button>
-      </div>
-
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name">مرڨاز / Merguez</span>
-          <span class="price">300 DA</span>
-        </div>
-
-        <button class="add-btn"
-                onclick="addItem('ساندويتش مرڨاز / Sandwich Merguez',300)">
-          إضافة إلى السلة
-        </button>
-      </div>
-
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name">كبدة / Foie</span>
-          <span class="price">350 DA</span>
-        </div>
-
-        <button class="add-btn"
-                onclick="addItem('ساندويتش كبدة / Sandwich Foie',350)">
-          إضافة إلى السلة
-        </button>
-      </div>
-
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name">إسكالوب / Escalope</span>
-          <span class="price">350 DA</span>
-        </div>
-
-        <button class="add-btn"
-                onclick="addItem('ساندويتش إسكالوب / Sandwich Escalope',350)">
-          إضافة إلى السلة
-        </button>
-      </div>
-
-
-      <div class="product">
-        <div class="product-top">
-          <span class="product-name">خاص / Spécial</span>
-          <span class="price">500 DA</span>
-        </div>
-
-        <button class="add-btn"
-                onclick="addItem('ساندويتش خاص / Sandwich Spécial',500)">
-          إضافة إلى السلة
-        </button>
-      </div>
-
-    </section>
-
-
-    <!-- CART -->
-    <section class="cart" id="cart">
-
-      <div class="cart-header">
-        <h2 class="cart-title" id="cartTitle">
-          🛒 السلة
-        </h2>
-
-        <span class="cart-count" id="cartCount">
-          0
-        </span>
-      </div>
-
-      <div id="cartItems">
-        <div class="empty" id="emptyCart">
-          السلة فارغة
-        </div>
-      </div>
-
-      <div class="total-box">
-        <span id="totalLabel">المجموع</span>
-
-        <span class="total-value">
-          <span id="total">0</span> DA
-        </span>
-      </div>
-
-
-      <!-- CUSTOMER -->
-      <div class="customer">
-
-        <h3 id="customerTitle">
-          معلومات الزبون
-        </h3>
-
-        <div class="field">
-          <label id="nameLabel">الاسم واللقب</label>
-
-          <input
-            type="text"
-            id="customerName"
-            placeholder="أدخل اسمك"
-            autocomplete="name">
-        </div>
-
-
-        <div class="field">
-          <label id="phoneLabel">رقم الهاتف</label>
-
-          <input
-            type="tel"
-            id="customerPhone"
-            placeholder="مثال: 0550123456"
-            autocomplete="tel">
-        </div>
-
-
-        <div class="field">
-          <label id="addressLabel">العنوان</label>
-
-          <textarea
-            id="customerAddress"
-            placeholder="أدخل عنوان التوصيل"></textarea>
-        </div>
-
-
-        <div class="field">
-          <label id="noteLabel">ملاحظة</label>
-
-          <textarea
-            id="customerNote"
-            placeholder="ملاحظة اختيارية للطلب"></textarea>
-        </div>
-
-
-        <button class="whatsapp-btn" onclick="sendWhatsApp()">
-          📲 <span id="whatsappText">
-            إرسال الطلب عبر WhatsApp
-          </span>
-        </button>
-
-
-        <button class="clear-btn"
-                id="clearBtn"
-                onclick="clearCart()">
-          إفراغ السلة
-        </button>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <footer>
-    FLAVORA © 2026
-  </footer>
-
-
+<header>
+<h1 class="logo">FLAVORA</h1>
+<p>Le goût qui fait la différence · المذاق اللي يصنع الفرق</p>
+<p>الطلب عبر واتساب · التوصيل حسب المنطقة</p>
+<p>
+<button onclick="document.querySelector('#menu').scrollIntoView({behavior:'smooth'})">تصفح المنيو</button>
+<button class="alt" onclick="document.querySelector('#cart').scrollIntoView({behavior:'smooth'})">السلة (<span id="count">0</span>)</button>
+<button class="alt" onclick="toggleAdmin()">إدارة المخزون</button>
+</p>
+</header>
+<main class="wrap">
+<div class="notice">الأسعار بالدينار الجزائري. أدخل الكميات الحقيقية من لوحة المخزون قبل استقبال الطلبات. هذه النسخة تحفظ المخزون على هذا الجهاز فقط ولا تزامنه بين أجهزة متعددة.</div>
+<div class="layout">
+<section id="menu">
+<nav id="nav"></nav>
+<div id="products"></div>
+</section>
+<aside class="cart" id="cart">
+<h2 class="title" style="margin-top:0">🛒 سلة المشتريات</h2>
+<div id="cartItems">السلة فارغة.</div>
+<div class="total">المجموع: <span id="total">0</span> دج</div>
+<form id="order">
+<input id="cust" placeholder="الاسم" required>
+<input id="phone" placeholder="رقم الهاتف" required>
+<input id="address" placeholder="منطقة التوصيل (اختياري)">
+<textarea id="note" rows="2" placeholder="ملاحظات (اختياري)"></textarea>
+<button type="submit">إرسال الطلب عبر WhatsApp</button>
+</form>
+<p class="muted">لا يُخصم المخزون تلقائيًا عند فتح واتساب؛ أكّد الطلب ثم حدّث المخزون يدويًا.</p>
+</aside>
+</div>
+<section class="admin hidden" id="admin">
+<h2 class="title">إدارة المخزون</h2>
+<p class="muted">أدخل كمية كل منتج جاهز للبيع ثم اضغط حفظ. هذه البيانات محلية على هذا المتصفح.</p>
+<input id="search" placeholder="ابحث عن منتج" oninput="renderAdmin()">
+<div id="stockList"></div>
+<button onclick="saveStock()">حفظ المخزون</button>
+<button class="alt" onclick="backup()">تنزيل نسخة احتياطية</button>
+<p id="msg" class="muted"></p>
+</section>
+</main>
+<footer>FLAVORA · لا يوجد عنوان دقيق منشور</footer>
 <script>
-
-  /* =========================
-     FLAVORA MVP
-     WhatsApp: 0696086599
-     ========================= */
-
-  const whatsappNumber = "213696086599";
-
-  let cart = [];
-
-  let language = "ar";
-
-
-  /* ADD PRODUCT */
-
-  function addItem(name, price) {
-
-    const existing = cart.find(item => item.name === name);
-
-    if (existing) {
-
-      existing.quantity++;
-
-    } else {
-
-      cart.push({
-        name: name,
-        price: price,
-        quantity: 1
-      });
-
-    }
-
-    updateCart();
-
-    document.getElementById("cart")
-      .scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-  }
-
-
-  /* CHANGE QUANTITY */
-
-  function changeQuantity(index, amount) {
-
-    cart[index].quantity += amount;
-
-    if (cart[index].quantity <= 0) {
-
-      cart.splice(index, 1);
-
-    }
-
-    updateCart();
-  }
-
-
-  /* REMOVE */
-
-  function removeItem(index) {
-
-    cart.splice(index, 1);
-
-    updateCart();
-  }
-
-
-  /* UPDATE CART */
-
-  function updateCart() {
-
-    const cartItems =
-      document.getElementById("cartItems");
-
-    const cartCount =
-      document.getElementById("cartCount");
-
-    const totalElement =
-      document.getElementById("total");
-
-    cartItems.innerHTML = "";
-
-    if (cart.length === 0) {
-
-      cartItems.innerHTML = `
-        <div class="empty">
-          ${
-            language === "ar"
-            ? "السلة فارغة"
-            : "Le panier est vide"
-          }
-        </div>
-      `;
-
-      cartCount.textContent = "0";
-
-      totalElement.textContent = "0";
-
-      return;
-    }
-
-
-    let total = 0;
-
-    let count = 0;
-
-
-    cart.forEach((item, index) => {
-
-      const itemTotal =
-        item.price * item.quantity;
-
-      total += itemTotal;
-
-      count += item.quantity;
-
-
-      const div =
-        document.createElement("div");
-
-      div.className = "cart-item";
-
-
-      div.innerHTML = `
-
-        <div class="cart-item-info">
-
-          <div class="cart-item-name">
-            ${item.name}
-          </div>
-
-          <div class="cart-item-price">
-            ${itemTotal} DA
-          </div>
-
-        </div>
-
-
-        <div class="cart-controls">
-
-          <button
-            class="quantity-btn"
-            onclick="changeQuantity(${index}, -1)">
-            −
-          </button>
-
-          <span class="quantity">
-            ${item.quantity}
-          </span>
-
-          <button
-            class="quantity-btn"
-            onclick="changeQuantity(${index}, 1)">
-            +
-          </button>
-
-          <button
-            class="remove-btn"
-            onclick="removeItem(${index})">
-
-            ${
-              language === "ar"
-              ? "حذف"
-              : "Supprimer"
-            }
-
-          </button>
-
-        </div>
-      `;
-
-
-      cartItems.appendChild(div);
-
-    });
-
-
-    cartCount.textContent = count;
-
-    totalElement.textContent = total;
-
-  }
-
-
-  /* SEND TO WHATSAPP */
-
-  function sendWhatsApp() {
-
-    if (cart.length === 0) {
-
-      alert(
-        language === "ar"
-        ? "السلة فارغة. اختر بعض المنتجات أولاً."
-        : "Le panier est vide. Choisissez d'abord des produits."
-      );
-
-      return;
-    }
-
-
-    const name =
-      document
-      .getElementById("customerName")
-      .value
-      .trim();
-
-
-    const phone =
-      document
-      .getElementById("customerPhone")
-      .value
-      .trim();
-
-
-    const address =
-      document
-      .getElementById("customerAddress")
-      .value
-      .trim();
-
-
-    const note =
-      document
-      .getElementById("customerNote")
-      .value
-      .trim();
-
-
-    if (!name || !phone || !address) {
-
-      alert(
-        language === "ar"
-        ? "من فضلك أكمل الاسم ورقم الهاتف والعنوان."
-        : "Veuillez remplir le nom, le téléphone et l'adresse."
-      );
-
-      return;
-    }
-
-
-    let total = 0;
-
-
-    let message =
-      "🍔 *FLAVORA - NOUVELLE COMMANDE*%0A%0A";
-
-
-    message +=
-      "👤 *"
-      +
-      (language === "ar" ? "الاسم" : "Nom")
-      +
-      ":* "
-      +
-      encodeURIComponent(name)
-      +
-      "%0A";
-
-
-    message +=
-      "📞 *"
-      +
-      (language === "ar" ? "الهاتف" : "Téléphone")
-      +
-      ":* "
-      +
-      encodeURIComponent(phone)
-      +
-      "%0A";
-
-
-    message +=
-      "📍 *"
-      +
-      (language === "ar" ? "العنوان" : "Adresse")
-      +
-      ":* "
-      +
-      encodeURIComponent(address)
-      +
-      "%0A%0A";
-
-
-    message +=
-      "🛒 *"
-      +
-      (language === "ar" ? "الطلب" : "Commande")
-      +
-      ":*%0A";
-
-
-    cart.forEach((item, index) => {
-
-      const itemTotal =
-        item.price * item.quantity;
-
-      total += itemTotal;
-
-
-      message +=
-        (index + 1)
-        +
-        ". "
-        +
-        encodeURIComponent(item.name)
-        +
-        " × "
-        +
-        item.quantity
-        +
-        " = "
-        +
-        itemTotal
-        +
-        " DA%0A";
-
-    });
-
-
-    message += "%0A";
-
-
-    message +=
-      "💰 *"
-      +
-      (language === "ar" ? "المجموع" : "Total")
-      +
-      ": "
-      +
-      total
-      +
-      " DA*%0A";
-
-
-    if (note) {
-
-      message +=
-        "📝 *"
-        +
-        (language === "ar" ? "ملاحظة" : "Note")
-        +
-        ":* "
-        +
-        encodeURIComponent(note)
-        +
-        "%0A";
-
-    }
-
-
-    message +=
-      "%0A📲 FLAVORA";
-
-
-    const whatsappURL =
-      "https://wa.me/"
-      +
-      whatsappNumber
-      +
-      "?text="
-      +
-      message;
-
-
-    window.open(
-      whatsappURL,
-      "_blank"
-    );
-
-  }
-
-
-  /* CLEAR CART */
-
-  function clearCart() {
-
-    if (cart.length === 0) return;
-
-
-    const confirmText =
-      language === "ar"
-      ? "هل تريد إفراغ السلة؟"
-      : "Voulez-vous vider le panier ?";
-
-
-    if (confirm(confirmText)) {
-
-      cart = [];
-
-      updateCart();
-
-    }
-
-  }
-
-
-  /* LANGUAGE */
-
-  function toggleLanguage() {
-
-    language =
-      language === "ar"
-      ? "fr"
-      : "ar";
-
-
-    document.documentElement.lang =
-      language === "ar"
-      ? "ar"
-      : "fr";
-
-
-    document.documentElement.dir =
-      language === "ar"
-      ? "rtl"
-      : "ltr";
-
-
-    document.getElementById("languageBtn")
-      .textContent =
-      language === "ar"
-      ? "FR"
-      : "AR";
-
-
-    if (language === "ar") {
-
-      document.getElementById("headerSubtitle")
-        .textContent =
-        "اطلب أكلك بسهولة";
-
-
-      document.getElementById("heroTitle")
-        .textContent =
-        "أهلاً بك في FLAVORA";
-
-
-      document.getElementById("heroText")
-        .textContent =
-        "اختار وجبتك، أضفها إلى السلة، وأرسل طلبك مباشرة عبر WhatsApp.";
-
-
-      document.getElementById("heroBadge")
-        .textContent =
-        "طلب سريع وسهل";
-
-
-      document.getElementById("cartTitle")
-        .textContent =
-        "🛒 السلة";
-
-
-      document.getElementById("totalLabel")
-        .textContent =
-        "المجموع";
-
-
-      document.getElementById("customerTitle")
-        .textContent =
-        "معلومات الزبون";
-
-
-      document.getElementById("nameLabel")
-        .textContent =
-        "الاسم واللقب";
-
-
-      document.getElementById("phoneLabel")
-        .textContent =
-        "رقم الهاتف";
-
-
-      document.getElementById("addressLabel")
-        .textContent =
-        "العنوان";
-
-
-      document.getElementById("noteLabel")
-        .textContent =
-        "ملاحظة";
-
-
-      document.getElementById("customerName")
-        .placeholder =
-        "أدخل اسمك";
-
-
-      document.getElementById("customerPhone")
-        .placeholder =
-        "مثال: 0550123456";
-
-
-      document.getElementById("customerAddress")
-        .placeholder =
-        "أدخل عنوان التوصيل";
-
-
-      document.getElementById("customerNote")
-        .placeholder =
-        "ملاحظة اختيارية للطلب";
-
-
-      document.getElementById("whatsappText")
-        .textContent =
-        "إرسال الطلب عبر WhatsApp";
-
-
-      document.getElementById("clearBtn")
-        .textContent =
-        "إفراغ السلة";
-
-
-      document.querySelectorAll(".add-btn")
-        .forEach(button => {
-
-          button.textContent =
-            "إضافة إلى السلة";
-
-        });
-
-    } else {
-
-      document.getElementById("headerSubtitle")
-        .textContent =
-        "Commandez votre repas facilement";
-
-
-      document.getElementById("heroTitle")
-        .textContent =
-        "Bienvenue chez FLAVORA";
-
-
-      document.getElementById("heroText")
-        .textContent =
-        "Choisissez votre repas, ajoutez-le au panier et envoyez votre commande par WhatsApp.";
-
-
-      document.getElementById("heroBadge")
-        .textContent =
-        "Commande rapide et facile";
-
-
-      document.getElementById("cartTitle")
-        .textContent =
-        "🛒 Panier";
-
-
-      document.getElementById("totalLabel")
-        .textContent =
-        "Total";
-
-
-      document.getElementById("customerTitle")
-        .textContent =
-        "Informations du client";
-
-
-      document.getElementById("nameLabel")
-        .textContent =
-        "Nom et prénom";
-
-
-      document.getElementById("phoneLabel")
-        .textContent =
-        "Numéro de téléphone";
-
-
-      document.getElementById("addressLabel")
-        .textContent =
-        "Adresse";
-
-
-      document.getElementById("noteLabel")
-        .textContent =
-        "Note";
-
-
-      document.getElementById("customerName")
-        .placeholder =
-        "Entrez votre nom";
-
-
-      document.getElementById("customerPhone")
-        .placeholder =
-        "Exemple : 0550123456";
-
-
-      document.getElementById("customerAddress")
-        .placeholder =
-        "Entrez l'adresse de livraison";
-
-
-      document.getElementById("customerNote")
-        .placeholder =
-        "Note facultative";
-
-
-      document.getElementById("whatsappText")
-        .textContent =
-        "Envoyer la commande via WhatsApp";
-
-
-      document.getElementById("clearBtn")
-        .textContent =
-        "Vider le panier";
-
-
-      document.querySelectorAll(".add-btn")
-        .forEach(button => {
-
-          button.textContent =
-            "Ajouter au panier";
-
-        });
-
-    }
-
-
-    updateCart();
-
-  }
-
+const WA='213696086599';
+const images={
+Sandwich:'photo-1553909489-cd47e0ef937f',
+Gratin:'photo-1476124369491-e7addf5db371',
+Tacos:'photo-1551509198-f8f7f1f3c8b3',
+Fajitas:'photo-1599974579688-8dbdd335c77f',
+Cheese:'photo-1528735602780-2552fd46c7af',
+Burger:'photo-1568901346375-23c9450c58cd',
+Box:'photo-1547592180-85f173990554',
+Soup:'photo-1547592166-23ac45744acd',
+Salad:'photo-1512621776951-a57141f2eefd',
+Pizza:'photo-1565299624946-b28f40a0ae38',
+Starter:'photo-1541529086526-db283c563270',
+Drink:'photo-1544145945-f90425340c7e'
+};
+const sections=[
+['ساندويتش','Sandwich',[
+['فريت',150],['أوملات',200],['فريت أوملات',200],['بولي أشي',250],
+['شاورمة',250],['سكالوب',300],['ماريني',300],['شاورمة',300],
+['فيونداشي',350],['كبدة',350],['مرقاز',350],['ميكس',400]
+]],
+['ساندويتش غراتيني','Gratin',[
+['بولي',450],['كبدة',500],['فيونداشي',550],['مرقاز',550],['فلافورا',650]
+]],
+['طاكوس','Tacos',[
+['بولي',[['M',400],['L',650],['XL',800]]],
+['فيونداشي',[['M',550],['L',700],['XL',1000]]],
+['كبدة',[['M',600],['L',800],['XL',1100]]],
+['ميكس',[['M',600],['L',800],['XL',1100]]],
+['كوردو بلو',[['M',650],['L',900],['XL',1300]]],
+['مرقاز',[['M',600],['L',850],['XL',1200]]]
+]],
+['فخطاس','Fajitas',[
+['بولي',350],['فيونداشي',400],['ميكس',450],['Flavora',600]
+]],
+['غراتن','Gratin',[
+['بولي',600],['فيونداشي',700],['كروفات',900],['فلافورا',1000]
+]],
+['ليتشيز','Cheese',[
+['تشيز سامبل',100],['بولي',150],['فيوند',200],['سكالوب',200],['كبدة',250],['كريسبي',250]
+]],
+['برغر','Burger',[
+['برغر كلاسيك',400],['أميريكا',500],['فريستي',500],['طر طر',550],
+['كريسبي',500],['بوتين',700],['فلافورا',850]
+]],
+['بوكس','Box',[
+['إندومي بولي',350],['بولي فيمي',350],['تونة',350],['كروفات',550],['فيونداشي',400],['خضار',350]
+]],
+['سوب','Soup',[
+['حريرة',250],['خضار',250]
+]],
+['صلاد','Salad',[
+['سيزار',500],['مسيدوان',350],['الجيريان',300]
+]],
+['بيتزا','Pizza',[
+['Margherita',[['M',350],['L',600],['XL',900]]],
+['Poulet',[['M',400],['L',700],['XL',1000]]],
+['Viande',[['M',500],['L',850],['XL',1200]]],
+['4 Fromages',[['M',600],['L',900],['XL',1500]]],
+['Spéciale',[['M',800],['L',1400],['XL',2000]]]
+]],
+['مقبلات','Starter',[
+['بوراك',100],['كيش',100],['فينغرس',150],['ميني فخطاس',150]
+]],
+['مشروبات','Drink',[
+['كوكة',[['صغير',70],['كبير',150]]],
+['فانت',[['صغير',70],['كبير',150]]],
+['حمود',[['صغير',70],['كبير',150]]],
+['بيبسي',[['صغير',70],['كبير',150]]],
+['أرنجينة',[['صغير',70],['كبير',150]]],
+['رامب',[['صغير',70],['كبير',150]]],
+['أفروي',[['صغير',70],['كبير',150]]],
+['كانيطا',100]
+]]
+];
+let products=[],stock={},cart={},n=0;
+sections.forEach(([cat,kind,items])=>items.forEach(([name,price])=>{
+if(Array.isArray(price)){
+price.forEach(([size,p])=>products.push({id:String(++n),cat,kind,name,size,price:p}));
+}else{
+products.push({id:String(++n),cat,kind,name,size:'',price});
+}
+}));
+try{stock=JSON.parse(localStorage.getItem('flavoraStock')||'{}')}catch(e){}
+try{cart=JSON.parse(sessionStorage.getItem('flavoraCart')||'{}')}catch(e){}
+const money=n=>Number(n).toLocaleString('fr-DZ');
+const left=p=>stock[p.id]===undefined?null:Math.max(0,Number(stock[p.id])||0);
+const photo=p=>`https://images.unsplash.com/${images[p.kind]}?auto=format&fit=crop&w=700&q=80`;
+
+function render(){
+document.getElementById('nav').innerHTML=sections.map((s,i)=>
+`<button onclick="document.getElementById('sec${i}').scrollIntoView({behavior:'smooth'})">${s[0]}</button>`
+).join('');
+document.getElementById('products').innerHTML=sections.map((s,i)=>
+`<section id="sec${i}"><h2 class="title">${s[0]}</h2><div class="grid">${
+products.filter(p=>p.cat===s[0]).map(p=>
+`<article class="card">
+<img loading="lazy" src="${photo(p)}" alt="${p.name}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1553909489-cd47e0ef937f?auto=format&fit=crop&w=700&q=80'">
+<div class="body">
+<div class="name">${p.name}${p.size?' · '+p.size:''}</div>
+<div class="price">${money(p.price)} دج</div>
+<div class="muted">${left(p)===null?'المخزون غير مضبوط':left(p)===0?'نفدت الكمية':'المتوفر: '+left(p)}</div>
+<button ${left(p)===0?'disabled':''} onclick="add('${p.id}')">${left(p)===0?'غير متوفر':'أضف للسلة'}</button>
+</div></article>`
+).join('')}</div></section>`
+).join('');
+renderCart();
+if(!document.getElementById('admin').classList.contains('hidden'))renderAdmin();
+}
+function add(id){
+let p=products.find(x=>x.id===id),l=left(p);
+if(l===null){alert('أدخل المخزون أولًا من لوحة الإدارة.');return}
+if((cart[id]||0)>=l){alert('الكمية المطلوبة أكبر من المخزون.');return}
+cart[id]=(cart[id]||0)+1;
+sessionStorage.setItem('flavoraCart',JSON.stringify(cart));
+renderCart();render();
+}
+function change(id,d){
+let v=(cart[id]||0)+d,p=products.find(x=>x.id===id);
+if(v<=0)delete cart[id];
+else if(left(p)!==null&&v<=left(p))cart[id]=v;
+else{alert('لا توجد كمية كافية.');return}
+sessionStorage.setItem('flavoraCart',JSON.stringify(cart));
+renderCart();render();
+}
+function renderCart(){
+let total=0,count=0;
+let html=Object.entries(cart).map(([id,q])=>{
+let p=products.find(x=>x.id===id);if(!p)return '';
+total+=p.price*q;count+=q;
+return `<div class="row"><div><b>${p.name}${p.size?' · '+p.size:''}</b><div class="muted">${p.price} × ${q} = ${p.price*q} دج</div></div><div class="qty"><button class="alt" onclick="change('${id}',-1)">−</button>${q}<button onclick="change('${id}',1)">+</button></div></div>`;
+}).join('');
+document.getElementById('cartItems').innerHTML=html||'السلة فارغة.';
+document.getElementById('total').textContent=money(total);
+document.getElementById('count').textContent=count;
+}
+function toggleAdmin(){
+document.getElementById('admin').classList.toggle('hidden');
+renderAdmin();
+}
+function renderAdmin(){
+let q=(document.getElementById('search').value||'').toLowerCase();
+document.getElementById('stockList').innerHTML=products.filter(p=>(p.name+p.cat).toLowerCase().includes(q)).map(p=>
+`<div class="row"><div><b>${p.name}${p.size?' · '+p.size:''}</b><div class="muted">${p.cat} · ${p.price} دج</div></div><div style="width:100px"><input type="number" min="0" step="1" data-id="${p.id}" value="${stock[p.id]??''}" placeholder="الكمية"></div></div>`
+).join('');
+}
+function saveStock(){
+document.querySelectorAll('[data-id]').forEach(e=>{
+if(e.value.trim()==='')delete stock[e.dataset.id];
+else stock[e.dataset.id]=Math.max(0,Math.floor(Number(e.value)||0));
+});
+localStorage.setItem('flavoraStock',JSON.stringify(stock));
+for(let id in cart){
+let p=products.find(p=>p.id===id);
+if(p&&left(p)!==null&&left(p)<cart[id])delete cart[id];
+}
+sessionStorage.setItem('flavoraCart',JSON.stringify(cart));
+document.getElementById('msg').textContent='تم حفظ المخزون على هذا الجهاز.';
+render();
+}
+function backup(){
+let a=document.createElement('a');
+let u=URL.createObjectURL(new Blob([JSON.stringify(stock,null,2)],{type:'application/json'}));
+a.href=u;a.download='flavora-stock.json';a.click();URL.revokeObjectURL(u);
+}
+document.getElementById('order').addEventListener('submit',e=>{
+e.preventDefault();
+if(!Object.keys(cart).length){alert('السلة فارغة.');return}
+let lines=[],sum=0;
+for(let [id,q] of Object.entries(cart)){
+let p=products.find(x=>x.id===id);
+if(!p||left(p)===null||q>left(p)){alert('تحقق من المخزون قبل إرسال الطلب.');return}
+lines.push(`${p.name}${p.size?' ('+p.size+')':''} × ${q} = ${p.price*q} دج`);
+sum+=p.price*q;
+}
+let msg=`طلب FLAVORA
+الاسم: ${document.getElementById('cust').value}
+الهاتف: ${document.getElementById('phone').value}
+منطقة التوصيل: ${document.getElementById('address').value||'غير محددة'}
+
+${lines.join('\n')}
+
+المجموع: ${sum} دج
+ملاحظات: ${document.getElementById('note').value||'لا توجد'}
+يرجى تأكيد توفر الطلب.`;
+window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank');
+});
+render();
 </script>
-
 </body>
 </html>
